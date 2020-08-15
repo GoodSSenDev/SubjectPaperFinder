@@ -1,4 +1,7 @@
 language: node.js
 
-script:
-  - npm test
+node_js:
+  - 12
+
+# script:
+#   - npm test
