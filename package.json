@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/GoodSSenDev/SubjectPaperFinder#readme",
   "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0",
     "node": "^12.18.3"
   }
 }
