@@ -25,5 +25,8 @@
     "mongoose": "^5.10.0",
     "node": "^12.18.3",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "cucumber": "^6.0.5"
   }
 }
