@@ -21,5 +21,33 @@ const Model = mongoose.model;
 const Papers = Model('papers', paperSchema);
 
 exports.getPapers = async () => {
-  return await Papers.find({})
+  let paperAr =[]
+  await Papers.find(function(error, papers){
+    if(error){
+      console.log(`error :: ${error}`)
+    } else {
+      papers.forEach(function(row){
+        console.log('data :: ' + row.title)
+        paperAr.push([row.title,row.content])
+      })
+    }
+  })
+  return paperAr;
 }
+
+
+exports.getPapersJSON = async () => {
+  let paperAr =[]
+  await Papers.find(function(error, papers){
+    if(error){
+      console.log(`error :: ${error}`)
+    } else {
+      papers.forEach(function(row){
+        console.log('data :: ' + row.title)
+        paperAr.push(row.title,row.content)
+      })
+    }
+  })
+  return JSON.stringify(paperAr);
+}
+

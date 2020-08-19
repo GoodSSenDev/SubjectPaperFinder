@@ -8,9 +8,9 @@ app.get('/', function (req, res) {
   res.send('<h1>Hello world</h1>')
 })
 
-app.get('/data', function (req, res) {
-  paperController.getPaperPrintConsole()
-  res.send('<h1>Hello world</h1>')
+app.get('/data', (req, res) => {
+  const papers = paperController.getPapers()
+  papers.then((paperData) => res.send(paperData))
 })
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

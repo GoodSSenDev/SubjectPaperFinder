@@ -6,3 +6,9 @@ exports.getPaperPrintConsole = async (req, res, next) => {
     console.log(papers)
 }
 
+exports.getPapers = async (req, res, next) => {
+    const papers = await paperModel.getPapers()
+    return papers;
+}
+
+
