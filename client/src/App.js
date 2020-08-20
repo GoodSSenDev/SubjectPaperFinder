@@ -20,14 +20,15 @@ class App extends Component {
   componentDidMount() {
     fetch('/data')
       .then((res) => res.json())
-      .then((rest) => {
-        this.counter = (this.counter%rest.length)
-        this.setState({
-          title: rest[this.counter][0],
-          content: rest[this.counter][1]
-        })
-
-      })
+      .then((data) => {
+        this.counter = (this.counter%data.length)
+        if(data[this.counter]!=undefined) {
+          this.setState({
+            title: data[this.counter][0],
+            content: data[this.counter][1]
+          })
+        }
+    })
       // .then((data) => this.setState({ username: data.paper[0]['title'] }));
   }
   
