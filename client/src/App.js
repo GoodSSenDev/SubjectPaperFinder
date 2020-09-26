@@ -3,6 +3,8 @@ import NavBar from "./components/navbar";
 import MainSearchBar from "./components/mainsearchbar";
 import TagBox from "./components/tagbox";
 import DropDown from "./components/dropdown";
+import Card from "./components/card";
+import ButtonArrow from "./components/buttonarrow";
 
 import logo from "./logo.svg";
 
@@ -69,68 +71,21 @@ class App extends Component {
             height: 2,
           }}
         />
-
-        <div
-          class="card mb-3"
-          style={{ maxwidth: "200px", marginRight: "20px", marginLeft: "20px" }}
-        >
-          <div class="row no-gutters">
-            <div class="col-md-4"></div>
-            <vl
-              style={{
-                color: "#e6e6e6",
-                backgroundColor: "#e6e6e6",
-                height: 10,
-                marginRight: "50px",
-              }}
-            />
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">{`${title}`}</h5>
-                <p class="card-text">{`${content}`}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={this.handlePreviousTitleButtonClick}
-          type="button"
-          class="btn btn-primary"
-          style={{ marginRight: "10px", marginLeft: "20px" }}
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            class="bi bi-arrow-left-circle-fill"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"
-            />
-          </svg>
-        </button>
-        <button
-          onClick={this.handleNextTitleButtonClick}
-          type="button"
-          class="btn btn-primary"
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            class="bi bi-arrow-right-circle-fill"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"
-            />
-          </svg>
-        </button>
+        <Card title={title} content={content} />
+        <ButtonArrow
+          buttonmethod={this.handlePreviousTitleButtonClick}
+          arrow={"bi bi-arrow-left-circle-fill"}
+          d={
+            "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"
+          }
+        />
+        <ButtonArrow
+          buttonmethod={this.handleNextTitleButtonClick}
+          arrow={"bi bi-arrow-right-circle-fill"}
+          d={
+            "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"
+          }
+        />
         <p></p>
       </React.Fragment>
     );
