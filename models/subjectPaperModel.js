@@ -1,8 +1,19 @@
 const mongoose = require("mongoose");
 
+//using process dotenv need env file to excess the Test DB
+require("dotenv").config();
+
+const url;
+//This check where the enviroment is on heroku or local
+if('MONGO_DB' in process.env) {
+  console.log("MONGO_DB set")
+  url= process.env.MONGO_DB
+} else if ('LOCAL_TEST' in process.env) {
+  console.log("LOCAL_TEST set")
+  url= process.env.MONGO_DB
+} else throw 'Need a .env file that contains connection string key';
+
 //const url = process.env.MONGO_DB
-const url =
-  "mongodb+srv://Dan:qwer1234@cluster0.ceddt.mongodb.net/PaperDB?retryWrites=true&w=majority";
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
