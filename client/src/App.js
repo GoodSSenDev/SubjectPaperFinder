@@ -5,23 +5,41 @@ import TagBox from "./components/tagbox";
 import DropDown from "./components/dropdown";
 import Card from "./components/card";
 import ButtonArrow from "./components/buttonarrow";
-
-import logo from "./logo.svg";
-
+import DisplayCards from "./components/displaycards";
 import "./App.css";
 import mainsearchbar from "./components/mainsearchbar";
+
+//import logo from "./logo.svg";
 
 class App extends Component {
   state = {
     title: null,
-    content: null,
+    author: null,
+    journal: null,
+    results: [],
   };
 
+  //code for package json scripts
+  //"start": "react-scripts start",
   constructor(props) {
     super(props);
     console.log("App - Constructor");
     this.counter = 0;
   }
+
+  makeDummyData = () => {
+    var i;
+    var temp = [];
+    for (i = 0; i < 10; i++) {
+      let data = {
+        title: i,
+        author: "Yuki",
+        Journal: "Top 10 Yukis",
+      };
+      temp.push(data);
+    }
+    this.setState({ results: temp });
+  };
 
   connecToServer() {
     fetch("/");
@@ -36,10 +54,12 @@ class App extends Component {
         if (data[this.counter] != undefined) {
           this.setState({
             title: data[this.counter][0],
-            content: data[this.counter][1],
+            author: data[this.counter][1],
+            journal: data[this.counter][2],
           });
         }
       });
+    this.makeDummyData();
     // .then((data) => this.setState({ username: data.paper[0]['title'] }));
   }
 
@@ -54,7 +74,7 @@ class App extends Component {
   };
 
   render() {
-    const { title, content } = this.state;
+    const { title, author, journal, results } = this.state;
     console.log("App - Rendered");
     return (
       <React.Fragment>
@@ -71,7 +91,9 @@ class App extends Component {
             height: 2,
           }}
         />
-        <Card title={title} content={content} />
+        <p style={{ marginLeft: "10px" }}>Showing {results.length} Results:</p>
+        <DisplayCards data={results} />
+
         <ButtonArrow
           buttonmethod={this.handlePreviousTitleButtonClick}
           arrow={"bi bi-arrow-left-circle-fill"}
@@ -86,7 +108,6 @@ class App extends Component {
             "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"
           }
         />
-        <p></p>
       </React.Fragment>
     );
   }
