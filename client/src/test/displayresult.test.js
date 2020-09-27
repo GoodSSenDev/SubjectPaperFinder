@@ -4,6 +4,8 @@ import { render } from "@testing-library/react";
 import App from "../App";
 import { act } from "react-dom/test-utils";
 import { except } from "chai";
+import DisplayCards from "../components/displaycards";
+import renderer from "react-test-renderer";
 const assert = require("assert");
 
 // test('renders learn react link', () => {
@@ -39,11 +41,20 @@ describe("Components Test", function () {
     assert.equal(h3, "Results");
   });
 
-  it("Test if results are shown", function () {
+  it("Renders Correctly", function () {
+    let components = null;
+    var i;
+    var temp = [];
+    for (i = 0; i < 10; i++) {
+      let data = {
+        title: "Title: " + i,
+        author: "Yuki",
+        journal: "Top 10 Yukis",
+      };
+      temp.push(data);
+    }
     act(() => {
-      ReactDom.render(<App />, rootContainer);
+      components = renderer.create(<DisplayCards data={temp} />);
     });
-    const h3 = rootContainer.querySelector("h3").innerHTML;
-    assert.equal(h3, "Results");
   });
 });

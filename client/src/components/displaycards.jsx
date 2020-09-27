@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import Card from "./card";
 
 class DisplayCards extends Component {
-  state = {};
+  state = {
+    items: [],
+  };
   render() {
-    const items = [];
+    this.items = [];
     const data = this.props.data;
-    var i;
-    for (i = 0; i < data.length; i++) {
-      items.push(<Card title={data[i].title} data={data[i]} />);
-    }
+    this.items.push(
+      data.map((elem) => <Card title={elem.title} data={elem} />)
+    );
+    return <div>{this.items}</div>;
+  }
 
-    return <div>{items}</div>;
+  getState() {
+    return this.state;
   }
 }
 

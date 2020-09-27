@@ -32,7 +32,7 @@ class App extends Component {
     var temp = [];
     for (i = 0; i < 10; i++) {
       let data = {
-        title: i,
+        title: "Title: " + i,
         author: "Yuki",
         Journal: "Top 10 Yukis",
       };
@@ -59,7 +59,6 @@ class App extends Component {
           });
         }
       });
-    this.makeDummyData();
     // .then((data) => this.setState({ username: data.paper[0]['title'] }));
   }
 
