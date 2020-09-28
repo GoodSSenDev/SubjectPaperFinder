@@ -7,6 +7,7 @@ const paperRecordFinder = require("../models/searchByName.js")
 
 var testPaper;
 before(async function () {
+  this.timeout(15000);
   testPaper = await paperRecordFinder(
     "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
   );
