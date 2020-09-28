@@ -18,7 +18,8 @@ class MainSearchBar extends Component {
         </div>
         <input
           style={{
-            marginRight: "100px",
+            marginRight: "20px",
+            marginleft: "50px",
           }}
           type="text"
           class="form-control"
@@ -26,6 +27,15 @@ class MainSearchBar extends Component {
           aria-label="Enter Description"
           aria-describedby="basic-addon1"
         ></input>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          style={{ marginRight: "100px", marginleft: "100px" }}
+        >
+          <text style={{ marginRight: "100px", marginleft: "100px" }}>
+            Search
+          </text>
+        </button>
       </div>
     );
   }

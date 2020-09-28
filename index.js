@@ -1,6 +1,7 @@
 const express = require("express");
 const paperController = require("./controllers/papersController");
 const searchController = require("./controllers/searchByNameController");
+const paperRouter = require("./routers/paper-router");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 var app = express();
@@ -19,5 +20,7 @@ app.get("/", function (req, res) {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
+
+app.use("/api", paperRouter);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

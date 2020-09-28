@@ -27,20 +27,6 @@ class App extends Component {
     this.counter = 0;
   }
 
-  makeDummyData = () => {
-    var i;
-    var temp = [];
-    for (i = 0; i < 10; i++) {
-      let data = {
-        title: "Title: " + i,
-        author: "Yuki",
-        Journal: "Top 10 Yukis",
-      };
-      temp.push(data);
-    }
-    this.setState({ results: temp });
-  };
-
   connecToServer() {
     fetch("/");
   }
