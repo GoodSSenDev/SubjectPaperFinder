@@ -8,18 +8,6 @@ import DisplayCards from "../components/displaycards";
 import renderer from "react-test-renderer";
 const assert = require("assert");
 
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
-
-// var jsdom = require("mocha-jsdom");
-
-// global.document = jsdom({
-//   url: "http://localhost:3000/",
-// });
-
 let rootContainer;
 
 beforeEach(() => {
@@ -56,5 +44,26 @@ describe("Components Test", function () {
     act(() => {
       components = renderer.create(<DisplayCards data={temp} />);
     });
+  });
+
+  it("Renders All Data Correctly", function () {
+    let components = null;
+
+    var i;
+    var dummydata = [];
+    for (i = 0; i < 10; i++) {
+      let data = {
+        title: "Title: " + i,
+        author: "Yuki",
+        journal: "Top 10 Yukis",
+      };
+      dummydata.push(data);
+    }
+    let displaycards = <DisplayCards data={dummydata} />;
+    act(() => {
+      ReactDom.render(displaycards, rootContainer);
+    });
+    const value = displaycards.props.data;
+    assert.equal(value.length, 10);
   });
 });
