@@ -5,25 +5,11 @@ require("../models/searchByName.js");
 const paperRecordFinder = require("../models/searchByName.js")
   .paperRecordFinder;
 
-var author;
-var title;
-var journal;
-var shouldAuthor;
-var shouldTitle;
-var shouldJournal;
-
+var testPaper;
 before(async function () {
-  var testPaper = await paperRecordFinder(
+  testPaper = await paperRecordFinder(
     "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
   );
-  author = testPaper[0].author;
-  title = testPaper[0].title;
-  journal = testPaper[0].journal;
-  shouldAuthor =
-    "Aniche, M F and Testing, MA Gerosa Software and {Verification} and {and} and {2010}";
-  shouldTitle =
-    "{Most common mistakes in test-driven development practice: Results from an online survey with developers}";
-  shouldJournal = "journal = ieeexplore.ieee.org";
 });
 
 describe("Mongoose", function () {
@@ -36,14 +22,20 @@ describe("Mongoose", function () {
   });
 
   it("should be getting specific paper author", () => {
-    assert.equal(author, shouldAuthor);
+    assert.equal(
+      testPaper[0].author,
+      "Aniche, M F and Testing, MA Gerosa Software and {Verification} and {and} and {2010}"
+    );
   });
 
   it("should be getting specific paper title", () => {
-    assert.equal(title, shouldTitle);
+    assert.equal(
+      testPaper[0].title,
+      "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
+    );
   });
 
   it("should be getting specific paper journal", () => {
-    assert.equal(journal, shouldJournal);
+    assert.equal(testPaper[0].journal, "journal = ieeexplore.ieee.org");
   });
 });
