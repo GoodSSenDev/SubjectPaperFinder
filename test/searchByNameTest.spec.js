@@ -5,27 +5,28 @@ require("../models/searchByName.js");
 const paperRecordFinder = require("../models/searchByName.js")
   .paperRecordFinder;
 
-describe("Mongoose", function () {
-  var author;
-  var title;
-  var journal;
-  var shouldAuthor;
-  var shouldTitle;
-  var shouldJournal;
-  before(async function () {
-    var testPaper = await paperRecordFinder(
-      "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
-    );
-    author = testPaper[0].author;
-    title = testPaper[0].title;
-    journal = testPaper[0].journal;
-    shouldAuthor =
-      "Aniche, M F and Testing, MA Gerosa Software and {Verification} and {and} and {2010}";
-    shouldTitle =
-      "{Most common mistakes in test-driven development practice: Results from an online survey with developers}";
-    shouldJournal = "journal = ieeexplore.ieee.org";
-  });
+var author;
+var title;
+var journal;
+var shouldAuthor;
+var shouldTitle;
+var shouldJournal;
 
+before(async function () {
+  var testPaper = await paperRecordFinder(
+    "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
+  );
+  author = testPaper[0].author;
+  title = testPaper[0].title;
+  journal = testPaper[0].journal;
+  shouldAuthor =
+    "Aniche, M F and Testing, MA Gerosa Software and {Verification} and {and} and {2010}";
+  shouldTitle =
+    "{Most common mistakes in test-driven development practice: Results from an online survey with developers}";
+  shouldJournal = "journal = ieeexplore.ieee.org";
+});
+
+describe("Mongoose", function () {
   it("should be in a state of connected", () => {
     assert.equal(mongoose.connection.readyState, 1);
   });
