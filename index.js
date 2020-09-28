@@ -12,7 +12,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/data", (req, res) => {
-  const papers = searchController.getPapers("most");
+  const papers = searchController.getPapers("asdfghj");
   papers.then((paperData) => res.send(paperData));
 });
 
