@@ -37,6 +37,10 @@ async function paperRecordFinder(titleName) {
   return record;
 }
 
+function close() {
+  mongoose.connection.close();
+}
+
+module.exports.close = close;
 module.exports.paperRecordFinder = paperRecordFinder;
-module.exports.paperRecordModel = paperRecordModel;
 module.exports.paperSchema = paperSchema;

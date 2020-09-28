@@ -1,9 +1,11 @@
 const { doesNotMatch } = require("assert");
 const assert = require("assert");
+const { fstat } = require("fs");
 const mongoose = require("mongoose");
 require("../models/searchByName.js");
 const paperRecordFinder = require("../models/searchByName.js")
   .paperRecordFinder;
+const close = require("../models/searchByName.js").close;
 
 var testPaper;
 before(async function () {
@@ -39,4 +41,8 @@ describe("Mongoose", function () {
   it("should be getting specific paper journal", () => {
     assert.equal(testPaper[0].journal, "journal = ieeexplore.ieee.org");
   });
+});
+
+after(function () {
+  close();
 });
