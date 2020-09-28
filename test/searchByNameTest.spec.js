@@ -1,3 +1,4 @@
+const { doesNotMatch } = require("assert");
 const assert = require("assert");
 const mongoose = require("mongoose");
 require("../models/searchByName.js");
@@ -25,23 +26,23 @@ describe("Mongoose", function () {
     shouldJournal = "journal = ieeexplore.ieee.org";
   });
 
-  it("should be in a state of connected", function () {
+  it("should be in a state of connected", () => {
     assert.equal(mongoose.connection.readyState, 1);
   });
 
-  it('should be connected to "papers" collection', async function () {
+  it('should be connected to "papers" collection', () => {
     assert.notEqual(mongoose.modelNames().indexOf("papers"), -1);
   });
 
-  it("should be getting specific paper author", async function () {
+  it("should be getting specific paper author", () => {
     assert.equal(author, shouldAuthor);
   });
 
-  it("should be getting specific paper title", async function () {
+  it("should be getting specific paper title", () => {
     assert.equal(title, shouldTitle);
   });
 
-  it("should be getting specific paper journal", async function () {
+  it("should be getting specific paper journal", () => {
     assert.equal(journal, shouldJournal);
   });
 });
