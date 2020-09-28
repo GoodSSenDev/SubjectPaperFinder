@@ -11,10 +11,10 @@ app.get("/", function (req, res) {
   res.send("<h1>  </h1>");
 });
 
-app.get("/data", (req, res) => {
-  const papers = searchController.getPapers("asdfghj");
-  papers.then((paperData) => res.send(paperData));
-});
+// app.get("/data", (req, res) => {
+//   const papers = searchController.getPapers("most");
+//   papers.then((paperData) => res.send(paperData));
+// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
