@@ -4,6 +4,10 @@ const PaperNameCtrl = require("../controllers/searchByNameController");
 
 const router = express.Router();
 
-router.post("/papername", PaperNameCtrl.getPapers);
+router.get("/", () => {
+  console.log("paper-router.js");
+  window.alert("paper-router.js");
+  PaperNameCtrl.getPapers("most");
+});
 
 module.exports = router;

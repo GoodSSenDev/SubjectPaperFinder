@@ -1,13 +1,15 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://localhost:5000/",
 });
 
-export const paperNameSearch = (payload) => api.post("/paper", payload);
-
+export const getPapers = async (name) => {
+  window.alert("index.js");
+  await api.get("/" + name);
+};
 const apis = {
-  paperNameSearch,
+  getPapers,
 };
 
 export default apis;
