@@ -7,7 +7,7 @@ class NavBar extends Component {
     return (
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand">SEER</a>
-        <form class="form-inline">
+        {/* <form class="form-inline">
           <input
             class="form-control mr-sm-2"
             type="search"
@@ -17,7 +17,7 @@ class NavBar extends Component {
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
-        </form>
+        </form> */}
       </nav>
     );
   }

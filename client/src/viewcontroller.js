@@ -11,8 +11,9 @@ class ViewController {
     var Data = {
       text: name,
     };
-    Axios.post("http://localhost:5000/", Data)
+    Axios.post(process.env.PORT || "http://localhost:5000/", Data)
       .then((res) => {
+        console.log(process.env.PORT);
         console.log("Data sent: " + JSON.stringify(res.data[0]));
         var Data = res.data;
         this.state.view.setState({ results: Data });

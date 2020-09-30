@@ -6,6 +6,7 @@ import ButtonArrow from "./components/buttonarrow";
 import DisplayCards from "./components/displaycards";
 import "./App.css";
 import ViewController from "./viewcontroller";
+import TagBox from "./components/tagbox";
 
 import Axios from "axios";
 
@@ -17,21 +18,6 @@ class App extends Component {
     Controller: new ViewController(this),
     searchfield: null,
   };
-
-  searchPaperName(name) {
-    var Data = {
-      text: name,
-    };
-    Axios.post("http://localhost:5000/", Data)
-      .then((res) => {
-        console.log("Data sent: " + JSON.stringify(res.data[0]));
-        var Data = res.data;
-        this.setState({ results: Data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
   componentDidMount = async () => {
     this.setState({
@@ -48,9 +34,9 @@ class App extends Component {
         <React.Fragment>
           <NavBar />
           {searchfield}
-          {/* <TagBox titlename={"ADD TAGS"} />
+          <TagBox titlename={"ADD TAGS"} />
           <TagBox titlename={"IGNORE TAGS"} />
-          <TagBox titlename={"Refine Search"} /> */}
+          <TagBox titlename={"Refine Search"} />
           <h3 style={{ marginLeft: "10px" }}>Results</h3>
           <hr
             style={{
