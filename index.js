@@ -2,18 +2,18 @@ const express = require("express");
 
 const paperController = require("./controllers/papersController");
 const searchController = require("./controllers/searchByNameController");
-const paperRouter = require("./routes/paper-router");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const cors = require("cors");
 
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.send({ message: "Back end connected" });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 app.post("/", async function (req, res) {
