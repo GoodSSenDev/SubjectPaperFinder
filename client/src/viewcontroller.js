@@ -1,5 +1,4 @@
 import Axios from "axios";
-import VController from "./viewcontroller";
 
 class ViewController {
   state = { view: null };
@@ -11,9 +10,8 @@ class ViewController {
     var Data = {
       text: name,
     };
-    Axios.post(process.env.PORT || "http://localhost:5000/", Data)
+    Axios.post("/", Data)
       .then((res) => {
-        console.log(process.env.PORT);
         console.log("Data sent: " + JSON.stringify(res.data[0]));
         var Data = res.data;
         this.state.view.setState({ results: Data });
