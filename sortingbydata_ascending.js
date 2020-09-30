@@ -1,32 +1,61 @@
 // date list of time stamp
-var Datelist = [
-    new Date('2020-1-1').valueOf(),
-    new Date('2020-1-7').valueOf(),
-    new Date('2021-1-2').valueOf(),
-    new Date('2019-3-1').valueOf(),
-    new Date('2020-2-1').valueOf(),
-]
+var arr = [{
+    author: "",
+    title: "",
+    journal: "",
+    date: "0/0/2020"
+}, {
+    author: "",
+    title: "",
+    journal: "",
+    date: "0/2/2020"
+}, {
+    author: "",
+    title: "",
+    journal: "",
+    date: "2/1/2020"
+}];
 
-// var Sqlist = new Array()
+//selection sort
+function ascendingSort(arr) {
+    var len = arr.length;
+    var earlyIndex, temp;
+    var date1 = [];
+    var date2 = [];
+    for (var i = 0; i < len - 1; i++) {
+        date1 = arr[i].date.split("/"); // ["01", "00", "2020"]
 
-// function of time format
-function timeFormat(timer) {
-    var date = new Date(timer); //change time stamp back to the date
-    //year
-    var y = data.getFullYear();
-    //month
-    var m = date.getMonth() + 1; //the month start form 0
-    //day
-    var d = date.getDate();
-    return '${y}-${m}-${d}';
-}
+        earlyIndex = i;
 
-for (let i = 0; i < Datelist.length; i++) {
-    timeFormat(Datelist[i]);
-}
+        for (var j = i + 1; j < len; j++) {
 
-function ascending() {
-    Datelist.sort(function(a, b) {
-        return a - b;
-    })
+            date2 = arr[j].date.split("/");
+
+            //compare year
+            if (date1[2] < date2[2]) {
+
+                earlyIndex = j;
+
+            } else {
+                // compare month
+                if (date1[1] < date2[1]) {
+
+                    earlyIndex = j;
+
+                } else {
+                    //compare day
+                    if (date1[0] < date2[0]) {
+
+                        earlyIndex = j;
+
+                    }
+                }
+
+            }
+        }
+
+        temp = arr[i];
+        arr[i] = arr[earlyIndex];
+        arr[earlyIndex] = temp
+    }
 }
