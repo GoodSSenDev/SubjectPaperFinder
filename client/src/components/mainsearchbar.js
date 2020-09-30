@@ -1,7 +1,25 @@
 import React, { Component } from "react";
 
 class MainSearchBar extends Component {
-  state = {};
+  state = { value: "", Controller: this.props.controller };
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+  handleSubmit(event) {
+    alert("A name was submitted: " + this.state.value);
+    event.preventDefault();
+  }
+  handleClick(event) {
+    this.state.Controller.searchPaperName(this.state.value);
+  }
+
   render() {
     return (
       <div
@@ -26,11 +44,14 @@ class MainSearchBar extends Component {
           placeholder="Enter Description"
           aria-label="Enter Description"
           aria-describedby="basic-addon1"
+          value={this.state.value}
+          onChange={this.handleChange}
         ></input>
         <button
           type="button"
           class="btn btn-primary btn-sm"
           style={{ marginRight: "100px", marginleft: "100px" }}
+          onClick={this.handleClick}
         >
           <text style={{ marginRight: "100px", marginleft: "100px" }}>
             Search

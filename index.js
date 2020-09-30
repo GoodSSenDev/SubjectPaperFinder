@@ -22,24 +22,17 @@ app.use(express.urlencoded({ extended: false }));
 //   const papers = searchController.getPapers("most");
 //   papers.then((paperData) => res.send(paperData));
 // });
-
-app.use("/api", paperRouter);
 app.get("/", (req, res) => {
   res.send({ message: "Back end connected" });
 });
 app.post("/", async function (req, res) {
-  // var data = {
-  //   data: req.body.text,
-  // };
   var temp = req.body.text;
   const papers = searchController.getPapers(req.body.text);
-  //console.log(papers);
   papers.then((paperData) => {
-    console.log(papers);
+    //console.log(papers);
+    console.log("requested papers");
     res.send(paperData);
   });
-  //console.log(req);
-  console.log(req.body.text);
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
