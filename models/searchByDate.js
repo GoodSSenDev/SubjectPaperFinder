@@ -12,3 +12,11 @@ var paperSchema = new Schema({
 
 //create model based on schema
 var paperRecordModel = mongoose.model("papers", paperSchema);
+
+async function getPaperByDate(date) {}
+
+function getMonth(date) {
+    let month;
+    const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    date.getMonth
+}

@@ -4,7 +4,7 @@ const { fstat } = require("fs");
 const mongoose = require("mongoose");
 require("../models/searchByName.js");
 const paperRecordFinder = require("../models/searchByName.js")
-  .paperRecordFinder;
+  .getPaperByName;
 const close = require("../models/connectMongo.js").close;
 
 var testPaper;
