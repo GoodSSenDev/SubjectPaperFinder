@@ -56,6 +56,7 @@ function ascendingSort(arr) {
 
         temp = arr[i];
         arr[i] = arr[earlyIndex];
-        arr[earlyIndex] = temp
+        arr[earlyIndex] = temp;
     }
+    return arr;
 }
