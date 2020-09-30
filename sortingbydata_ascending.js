@@ -1,31 +1,32 @@
-var ul = document.getElementsByTagName('ul')[0];
-var li = ul.getElementsByTagName('li');
-var list = [];
+// date list of time stamp
+var Datelist = [
+    new Date('2020-1-1').valueOf(),
+    new Date('2020-1-7').valueOf(),
+    new Date('2021-1-2').valueOf(),
+    new Date('2019-3-1').valueOf(),
+    new Date('2020-2-1').valueOf(),
+]
 
+// var Sqlist = new Array()
 
-function fun1(ul, li, list) {
-    for (var i = 0; i < li.length; i++) {
-        var tmp = {};
-        tmp.dom = li[i];
-        tmp.date = new Date(li[i].firstChild.data.replace(/-/g, '/'));
-        list.push(tmp);
-    }
-    list.sort(function(a, b) {
-        return a.date - b.date; //b.date - a.date;
-    });
-
-    for (var i = 0; i < list.length; i++) {
-        ul.appendChild(list[i].dom);
-    }
+// function of time format
+function timeFormat(timer) {
+    var date = new Date(timer); //change time stamp back to the date
+    //year
+    var y = data.getFullYear();
+    //month
+    var m = date.getMonth() + 1; //the month start form 0
+    //day
+    var d = date.getDate();
+    return '${y}-${m}-${d}';
 }
 
-function fun2() {
-    alert('hi');
+for (let i = 0; i < Datelist.length; i++) {
+    timeFormat(Datelist[i]);
 }
 
-//1.get object of the 'sort'
-var sort = document.getElementsByClassName("sort1");
-//2.event
-sort[0].onclick = function() {
-    fun1(ul, li, list);
+function ascending() {
+    Datelist.sort(function(a, b) {
+        return a - b;
+    })
 }
