@@ -11,8 +11,9 @@ function fun1(ul, li, list) {
         list.push(tmp);
     }
     list.sort(function(a, b) {
-        return b.date - a.date; //a.date - b.date;
+        return a.date - b.date; //b.date - a.date;
     });
+
     for (var i = 0; i < list.length; i++) {
         ul.appendChild(list[i].dom);
     }
