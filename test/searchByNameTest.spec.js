@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("../models/searchByName.js");
 const paperRecordFinder = require("../models/searchByName.js")
   .paperRecordFinder;
-const close = require("../models/searchByName.js").close;
+const close = require("../models/connectMongo.js").close;
 
 var testPaper;
 before(async function () {

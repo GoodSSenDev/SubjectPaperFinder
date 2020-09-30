@@ -1,29 +1,18 @@
+require("./connectMongo");
 const mongoose = require("mongoose");
-
-const url =
-  "mongodb+srv://Dan:qwer1234@cluster0.ceddt.mongodb.net/PaperDB?retryWrites=true&w=majority";
-
-//setup connection
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-//get default connection and get error notification (if there is an error)
-mongoose.connection.on(
-  "error",
-  console.error.bind(console, "MongoDB connection error:")
-);
 
 var Schema = mongoose.Schema;
 var paperSchema = new Schema({
-  author: String,
-  title: String,
-  journal: String,
+  author: { Type: String },
+  title: { Type: String },
+  journal: { Type: String },
 });
 
 //create model based on schema
 var paperRecordModel = mongoose.model("papers", paperSchema);
 
 // Finds all papers with title: 'title' and returns list of fields: "author", "title", "journal"
-async function paperRecordFinder(titleName) {
+async function getPaperByName(titleName) {
   // Change titleName to a regex to find all papers with the given search term in it (also case insensitive)
   // note: there might be a problem with special characters
   var regex = new RegExp(titleName, "i");
@@ -37,10 +26,4 @@ async function paperRecordFinder(titleName) {
   return record;
 }
 
-function close() {
-  mongoose.connection.close();
-}
-
-module.exports.close = close;
-module.exports.paperRecordFinder = paperRecordFinder;
-module.exports.paperSchema = paperSchema;
+exports.getPaperByName = getPaperByName;
