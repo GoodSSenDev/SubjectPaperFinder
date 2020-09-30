@@ -8,10 +8,9 @@ import Card from "./components/card";
 import ButtonArrow from "./components/buttonarrow";
 import DisplayCards from "./components/displaycards";
 import "./App.css";
-import api from "./api";
 import mainsearchbar from "./components/mainsearchbar";
 
-import axios from "axios";
+import Axios from "axios";
 
 //import logo from "./logo.svg";
 
@@ -37,30 +36,26 @@ class App extends Component {
   }
 
   callAPI() {
-    // axios
-    //   .post("http://localhost:5000/api", "most")
-    //   .then(() => console.log("Made request"));
-    fetch("http://localhost:5000/api")
-      .then((res) => res.text())
-      .then((res) => this.setState({ apiResponse: res }));
+    var Data = {
+      text: "most",
+    };
+    Axios.post("http://localhost:5000/", Data, {
+      Authorization: "Bearer my-token",
+      "My-Custom-Header": "foobar",
+    })
+      .then((res) => {
+        console.log("Data sent: " + JSON.stringify(res.data[0]));
+        var Data = res.data;
+        this.setState({ results: Data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    //this.setState({ apiResponse: mes });
   }
 
   componentDidMount = async () => {
-    // fetch("/data")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     this.counter =
-    //       ((this.counter % data.length) + data.length) % data.length;
-    //     if (data[this.counter] != undefined) {
-    //       this.setState({
-    //         title: data[this.counter][0],
-    //         author: data[this.counter][1],
-    //         journal: data[this.counter][2],
-    //       });
-    //     }
-    //   });
-    // // .then((data) => this.setState({ username: data.paper[0]['title'] }));
-
     this.callAPI();
   };
 
