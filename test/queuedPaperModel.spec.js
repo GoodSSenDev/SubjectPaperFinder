@@ -1,51 +1,46 @@
+const { doesNotMatch } = require("assert");
+const assert = require("assert");
+const queuedPaperModel = require("../models/queuedPaperModel");
 
-const { doesNotMatch } = require('assert');
-const assert = require('assert');
-const queuedPaperModel = require('../models/queuedPaperModel')
+describe("QueuedPaperModel test", function () {
+  it("QueuedPaperModel should insert new Paper", async function () {
+    const testingPaper = {
+      author: "testMan",
+      title: "testingTitle",
+      journal: "software",
+      year: "2008",
+      page: "78--88",
+      month: "jul",
+      annote: "Accepted for publication",
+    };
+    await queuedPaperModel.insertNewQueuedPaper(testingPaper);
 
+    setTimeout(() => {}, 1000);
 
-describe('QueuedPaperModel test', function () {
+    const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
+    assert.equal(arrayOfQueuedPaper[0].title, "testingTitle");
+    await queuedPaperModel.deleteEveryQueuedPapers(0);
 
-    it('QueuedPaperModel should insert new Tag', async function () {
+    setTimeout(() => {}, 1000);
+  });
 
+  it("QueuedPaperModel should Delete Queued Paper by Id", async function () {
+    const testingPaper = {
+      author: "testMan",
+      title: "testingTitle1",
+      journal: "software",
+      year: "2008",
+    };
 
-        const testingPaper = { 
-            author: 'testMan',
-            title: 'testingTitle',
-            journal: 'software',
-            year: '2008',
-            page: '78--88', 
-            month: 'jul',
-            annote: 'Accepted for publication' }
-        await queuedPaperModel.insertNewQueuedPaper(testingPaper);
+    await queuedPaperModel.insertNewQueuedPaper(testingPaper);
 
-        const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
-        assert.equal(arrayOfQueuedPaper[0].title, 'testingTitle');
-        await queuedPaperModel.deleteEveryQueuedPapers(0);
-        
-        setTimeout(() => {
+    await queuedPaperModel.deleteEveryQueuedPapers(0);
+    const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
 
-        }, 1000);
-    });
-
-    it('QueuedPaperModel should Delete Queued Paper by Id', async function () {
-
-        const testingPaper = { 
-            author: 'testMan', 
-            title: 'testingTitle1', 
-            journal: 'software', 
-            year: '2008' }
-            
-        await queuedPaperModel.insertNewQueuedPaper(testingPaper)
-
-        await queuedPaperModel.deleteEveryQueuedPapers(0);
-        const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
-
-        assert.equal((arrayOfQueuedPaper.length == 0), true);
-    });
-
+    assert.equal(arrayOfQueuedPaper.length == 0, true);
+  });
 });
 
 after(() => {
-    queuedPaperModel.connectionClose();
-})
+  queuedPaperModel.connectionClose();
+});
