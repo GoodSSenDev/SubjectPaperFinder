@@ -1,19 +1,71 @@
 import React, { Component } from "react";
 
-import InputBoxes from "../components/InputBoxes";
+import ViewController from "../viewcontroller";
 
 class SubmissionPage extends Component {
-  state = { InputBoxes: <InputBoxes /> };
+  state = { title: "", author: "", journal: "" };
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  handleSubmit(event) {}
+  handleSubmit(event) {
+    var data = this.state;
+    ViewController.submitPaper(data);
+    window.alert("Submission Sent! :3");
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  }
 
   render() {
     console.log("Submission page - Rendered");
     return (
-      <div>
-        {this.state.InputBoxes}
+      <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+        <form>
+          <label style={{ marginLeft: "10px" }}>Title</label>
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            placeholder="Enter Text"
+            aria-label="Enter Text"
+            aria-describedby="basic-addon1"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+          <p />
+          <label style={{ marginLeft: "10px" }}>Author</label>
+          <input
+            name="author"
+            type="text"
+            class="form-control"
+            placeholder="Enter Text"
+            aria-label="Enter Text"
+            aria-describedby="basic-addon1"
+            value={this.state.author}
+            onChange={this.handleChange}
+          />
+          <p />
+          <label style={{ marginLeft: "10px" }}>Journal</label>
+          <input
+            name="journal"
+            type="text"
+            class="form-control"
+            placeholder="Enter Text"
+            aria-label="Enter Text"
+            aria-describedby="basic-addon1"
+            value={this.state.journal}
+            onChange={this.handleChange}
+          />
+        </form>
         <button
           style={{
             marginLeft: "1900px",
@@ -41,12 +93,11 @@ class SubmissionPage extends Component {
         <p />
         <button
           style={{
-            marginLeft: "50px",
-            marginRight: "50px",
             marginTop: "10px",
           }}
           type="button"
           class="btn btn-primary btn-lg"
+          onClick={this.handleSubmit}
         >
           Submit
         </button>
