@@ -27,11 +27,8 @@
     "mongoose": "^5.10.0",
     "node": "^12.18.3",
     "path": "^0.12.7",
-<<<<<<< HEAD
-    "shallowequal": "^1.1.0"
-=======
+    "shallowequal": "^1.1.0",
     "react-router": "^5.2.0"
->>>>>>> develop
   },
   "devDependencies": {
     "cucumber": "^6.0.5"
