@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const cors = require("cors");
 const { sayHello } = require("./test");
+const { getPaperByName } = require("./models/searchByName");
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
@@ -32,12 +33,26 @@ app.get("*", (req, res) => {
 app.post("/", async function (req, res) {
   var header = req.header("title");
   var data = req.body;
-  console.log(header);
+  //console.log(header);
   if (header == "Searching_Paper") {
+    var paperDataDate = [];
+    var paperDataName = [];
+    console.log(data);
+    if (data.startDate != "" && data.endDate != "") {
+      const paperdate = searchByDateController.getPapers([
+        data.startDate,
+        data.endDate,
+      ]);
+      paperdate.then((paperdate) => {
+        paperDataDate = paperdate;
+      });
+    }
+    console.log(data.text);
     const papers = searchController.getPapers(data.text);
     papers.then((paperData) => {
-      console.log("requested papers");
-      res.send(paperData);
+      //console.log("requested papers");
+      paperDataName = paperData;
+      res.send([paperDataName, paperDataDate]);
     });
   } else if (header == "Submit_Paper") {
     console.log("Submitting paper");
