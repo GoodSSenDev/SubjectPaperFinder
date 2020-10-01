@@ -1,5 +1,8 @@
 {
   "git.ignoreLimitWarning": true,
   "folders": [],
-  "settings": {}
+  "settings": {},
+  "[javascript]": {
+    "editor.formatOnSave": true
+}
 }

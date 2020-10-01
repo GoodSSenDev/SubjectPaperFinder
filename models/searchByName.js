@@ -1,15 +1,5 @@
 require("./connectMongo");
-const mongoose = require("mongoose");
-
-var Schema = mongoose.Schema;
-var paperSchema = new Schema({
-  author: { Type: String },
-  title: { Type: String },
-  journal: { Type: String },
-});
-
-//create model based on schema
-var paperRecordModel = mongoose.model("papers", paperSchema);
+const paperRecordModel = require("./connectMongo").paperRecordModel;
 
 // Finds all papers with title: 'title' and returns list of fields: "author", "title", "journal"
 async function getPaperByName(titleName) {

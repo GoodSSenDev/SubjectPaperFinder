@@ -12,8 +12,23 @@ mongoose.connection.on(
   console.error.bind(console, "MongoDB connection error:")
 );
 
+var Schema = mongoose.Schema;
+var paperSchema = new Schema({
+  author: { Type: String },
+  title: { Type: String },
+  journal: { Type: String },
+  year: { Type: Number },
+  month: { Type: String },
+  day: { Type: Number },
+  date: { Type: String },
+});
+
+//create model based on schema
+var paperRecordModel = mongoose.model("papers", paperSchema);
+
 function close() {
   mongoose.connection.close();
 }
 
 exports.close = close;
+exports.paperRecordModel = paperRecordModel;
