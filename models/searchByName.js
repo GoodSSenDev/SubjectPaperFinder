@@ -1,7 +1,17 @@
 const mongoose = require("mongoose");
 
-const url =
-  "mongodb+srv://Dan:qwer1234@cluster0.ceddt.mongodb.net/PaperDB?retryWrites=true&w=majority";
+let url;
+if ('MONGO_DB' in process.env) {
+  console.log("MONGO_DB set")
+  url = process.env.MONGO_DB
+} else if ('LOCAL_TEST' in process.env) {
+  console.log("LOCAL_TEST set")
+  url = process.env.LOCAL_TEST
+} else {
+  console.log("CI_TEST set")
+  url = "mongodb+srv://DevTest2:UXUm9fdgNBywBTLY@cluster0.ceddt.mongodb.net/TestPaperDB?retryWrites=true&w=majority";
+}
+
 
 //setup connection
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
