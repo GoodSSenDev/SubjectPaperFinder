@@ -7,9 +7,10 @@ class Card extends Component {
     for (const [key, value] of Object.entries(data)) {
       if (key != "title")
         items.push(
-          <body>
-            {key.toUpperCase()}: {value}
-          </body>
+          <div>
+            <text style={{ fontWeight: "bold" }}>{key.toUpperCase()}</text>
+            <body>{value}</body>
+          </div>
         );
     }
     return (
@@ -29,7 +30,10 @@ class Card extends Component {
           />
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{`${this.props.title}`}</h5>
+              <h5
+                class="card-title"
+                style={{ color: "#4f8ae8" }}
+              >{`${this.props.title}`}</h5>
               {items}
             </div>
           </div>

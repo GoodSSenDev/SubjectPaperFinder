@@ -12,7 +12,7 @@ class ViewController {
     };
     Axios.post("/", Data)
       .then((res) => {
-        console.log("Data sent: " + JSON.stringify(res.data[0]));
+        //console.log("Data sent: " + JSON.stringify(res.data[0]));
         var Data = res.data;
         this.state.view.setState({ results: Data });
       })
@@ -20,6 +20,8 @@ class ViewController {
         console.error(err);
       });
   }
+
+  submitPaper(data) {}
 }
 
 export default ViewController;
