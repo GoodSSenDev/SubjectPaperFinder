@@ -20,7 +20,11 @@ class Home extends Component {
     this.setState({
       searchfield: <MainSearchBar controller={this.state.Controller} />,
     });
-    this.state.Controller.searchPaperName("");
+    this.state.Controller.searchPaperName({
+      value: "",
+      StartDate: "",
+      EndDate: "",
+    });
   };
 
   render() {
@@ -29,7 +33,7 @@ class Home extends Component {
     return (
       <React.Fragment>
         {searchfield}
-        <DatePickerCustom />
+        {/* <DatePickerCustom /> */}
         <TagBox titlename={"ADD TAGS"} />
         <TagBox titlename={"IGNORE TAGS"} />
         <TagBox titlename={"Refine Search"} />

@@ -8,7 +8,7 @@ async function getPaperByName(titleName) {
   var regex = new RegExp(titleName, "i");
   const record = await paperRecordModel.find(
     { title: regex },
-    "author title journal -_id",
+    "author title journal date -_id",
     function (err, arr) {
       if (err) return handleError(err);
     }
