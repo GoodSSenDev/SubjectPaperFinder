@@ -9,7 +9,7 @@ const close = require("../models/searchByName.js").close;
 
 var testPaper;
 before(async function() {
-    this.timeout(15000);
+    this.timeout(30000);
     testPaper = await paperRecordFinder(
         "{Most common mistakes in test-driven development practice: Results from an online survey with developers}"
     );
