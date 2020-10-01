@@ -1,41 +1,8 @@
-const mongoose = require("mongoose");
-
-require("dotenv").config();
-
-let url;
-if ("MONGO_DB" in process.env) {
-  console.log("MONGO_DB set");
-  url = process.env.MONGO_DB;
-} else if ("LOCAL_TEST" in process.env) {
-  console.log("LOCAL_TEST set");
-  url = process.env.LOCAL_TEST;
-} else {
-  console.log("CI_TEST set");
-  url =
-    "mongodb+srv://DevTest2:UXUm9fdgNBywBTLY@cluster0.ceddt.mongodb.net/TestPaperDB?retryWrites=true&w=majority";
-}
-
-//setup connection
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-//get default connection and get error notification (if there is an error)
-mongoose.connection.on(
-  "error",
-  console.error.bind(console, "MongoDB connection error:")
-);
-
-var Schema = mongoose.Schema;
-var paperSchema = new Schema({
-  author: String,
-  title: String,
-  journal: String,
-});
-
-//create model based on schema
-var paperRecordModel = mongoose.model("papers", paperSchema);
+require("./connectMongo");
+const paperRecordModel = require("./connectMongo").paperRecordModel;
 
 // Finds all papers with title: 'title' and returns list of fields: "author", "title", "journal"
-async function paperRecordFinder(titleName) {
+async function getPaperByName(titleName) {
   // Change titleName to a regex to find all papers with the given search term in it (also case insensitive)
   // note: there might be a problem with special characters
   var regex = new RegExp(titleName, "i");
@@ -49,10 +16,4 @@ async function paperRecordFinder(titleName) {
   return record;
 }
 
-function close() {
-  mongoose.connection.close();
-}
-
-module.exports.close = close;
-module.exports.paperRecordFinder = paperRecordFinder;
-module.exports.paperSchema = paperSchema;
+exports.getPaperByName = getPaperByName;

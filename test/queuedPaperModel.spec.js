@@ -1,4 +1,5 @@
 const { doesNotMatch } = require("assert");
+const close = require("../models/connectMongo").close;
 const assert = require("assert");
 const queuedPaperModel = require("../models/queuedPaperModel");
 
@@ -42,5 +43,5 @@ describe("QueuedPaperModel test", function () {
 });
 
 after(() => {
-  queuedPaperModel.connectionClose();
+  close;
 });

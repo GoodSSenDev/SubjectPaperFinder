@@ -2,7 +2,9 @@ const express = require("express");
 
 const paperController = require("./controllers/papersController");
 const searchController = require("./controllers/searchByNameController");
+const searchByDateController = require("./controllers/searchByDateController");
 const queuedPaperModelController = require("./controllers/queuedPaperModelController");
+
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -10,6 +12,15 @@ const cors = require("cors");
 const { sayHello } = require("./test");
 
 app.use(express.static(path.join(__dirname, "client/build")));
+
+app.get("/", function (req, res) {
+  res.send("<h1>  </h1>");
+});
+
+app.get("/data", (req, res) => {
+  const papers = searchByDateController.getPapers(["00/00/2014", "00/07/2019"]);
+  papers.then((paperData) => res.send(paperData));
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

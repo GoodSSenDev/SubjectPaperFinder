@@ -1,46 +1,8 @@
 const { truncate } = require("fs");
-const mongoose = require("mongoose");
-
+const close = require("./connectMongo").close;
+const QueuedPapers = require("./connectMongo").QueuedPapers;
+require("./connectMongo");
 require("dotenv").config();
-
-let url;
-//This check where the enviroment is on heroku or local or CICD
-if ("MONGO_DB" in process.env) {
-  console.log("MONGO_DB set");
-  url = process.env.MONGO_DB;
-} else if ("LOCAL_TEST" in process.env) {
-  console.log("LOCAL_TEST set");
-  url = process.env.LOCAL_TEST;
-} else {
-  console.log("CI_TEST set");
-  url =
-    "mongodb+srv://DevTest2:UXUm9fdgNBywBTLY@cluster0.ceddt.mongodb.net/TestPaperDB?retryWrites=true&w=majority";
-}
-
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose is connected");
-});
-//Choosing papers document schema to get collect data set
-const Schema = mongoose.Schema;
-const queuedPaperSchema = new Schema({
-  _PId: { type: Number, required: true },
-  author: { type: String, required: false },
-  title: { type: String },
-  journal: { type: String, required: false },
-  year: { type: Number, required: false },
-  pages: { type: String, required: false },
-  month: { type: String, required: false },
-  annote: { type: Number, required: false },
-  eprint: { type: String, required: false },
-  eprinttype: { type: String, required: false },
-  eprintclass: { type: String, required: false },
-});
-
-//model = document
-const Model = mongoose.model;
-const QueuedPapers = Model("queuedpapers", queuedPaperSchema);
 
 //return tags in the database
 exports.getQueuedPapers = async () => {
@@ -101,8 +63,4 @@ exports.deleteEveryQueuedPapers = async () => {
     return false;
   });
   return true;
-};
-
-exports.connectionClose = () => {
-  mongoose.connection.close();
 };
