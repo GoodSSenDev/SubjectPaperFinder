@@ -1,21 +1,3 @@
-// // date list of time stamp
-// var arr = [{
-//     author: "",
-//     title: "",
-//     journal: "",
-//     date: "0/0/2020"
-// }, {
-//     author: "",
-//     title: "",
-//     journal: "",
-//     date: "0/2/2020"
-// }, {
-//     author: "",
-//     title: "",
-//     journal: "",
-//     date: "2/1/2020"
-// }];
-
 exports.ascendingSort = (arr) => {
     //selection sort
     {
