@@ -13,7 +13,7 @@ class DatePickerCustom extends Component {
 
   render() {
     return (
-      <div style={{ marginLeft: "1200px" }}>
+      <div style={{ marginLeft: "50px" }}>
         <text>From: </text>
         <DatePicker
           selected={this.state.StartDate}
@@ -21,7 +21,8 @@ class DatePickerCustom extends Component {
           isClearable
           placeholderText="Enter From Date"
         />
-        <text style={{ marginLeft: "100px" }}> To: </text>
+        <p />
+        <text>To: </text>
         <DatePicker
           selected={this.state.EndDate}
           onChange={(date) => this.setEndDate(date)}

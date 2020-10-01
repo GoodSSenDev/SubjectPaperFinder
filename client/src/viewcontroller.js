@@ -10,7 +10,12 @@ class ViewController {
     var Data = {
       text: name,
     };
-    Axios.post("/", Data)
+    let config = {
+      headers: {
+        title: "Searching_Paper",
+      },
+    };
+    Axios.post("/", Data, config)
       .then((res) => {
         //console.log("Data sent: " + JSON.stringify(res.data[0]));
         var Data = res.data;
@@ -21,7 +26,21 @@ class ViewController {
       });
   }
 
-  submitPaper(data) {}
+  static submitPaper(data) {
+    let config = {
+      headers: {
+        title: "Submit_Paper",
+      },
+    };
+    Axios.post("/", data, config)
+      .then((res) => {
+        console.log("Submission Sent!");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
 
 export default ViewController;
