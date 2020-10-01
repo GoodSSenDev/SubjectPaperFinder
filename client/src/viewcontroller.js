@@ -65,7 +65,7 @@ class ViewController {
           biggerResult[i].author == smallerResult[j].author &&
           biggerResult[i].title == smallerResult[j].title
         )
-          actual.push(biggerResult[i]);
+          actual.push(smallerResult[j]);
       }
     }
     console.log("actual" + actual);
