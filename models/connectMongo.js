@@ -24,8 +24,8 @@ mongoose.connection.on(
   console.error.bind(console, "MongoDB connection error:")
 );
 
-var Schema = mongoose.Schema;
-var paperSchema = new Schema({
+var SchemaDate = mongoose.Schema;
+var paperSchema = new SchemaDate({
   author: { Type: String },
   title: { Type: String },
   journal: { Type: String },
@@ -38,9 +38,30 @@ var paperSchema = new Schema({
 //create model based on schema
 var paperRecordModel = mongoose.model("papers", paperSchema);
 
+//Choosing papers document schema to get collect data set
+const Schema = mongoose.Schema;
+const queuedPaperSchema = new Schema({
+  _PId: { type: Number, required: true },
+  author: { type: String, required: false },
+  title: { type: String },
+  journal: { type: String, required: false },
+  year: { type: Number, required: false },
+  pages: { type: String, required: false },
+  month: { type: String, required: false },
+  annote: { type: Number, required: false },
+  eprint: { type: String, required: false },
+  eprinttype: { type: String, required: false },
+  eprintclass: { type: String, required: false },
+});
+
+//model = document
+const Model = mongoose.model;
+const QueuedPapers = Model("queuedpapers", queuedPaperSchema);
+
 function close() {
   mongoose.connection.close();
 }
 
 exports.close = close;
 exports.paperRecordModel = paperRecordModel;
+exports.QueuedPapers = QueuedPapers;
