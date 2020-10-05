@@ -22,14 +22,11 @@ class App extends Component {
         <div>
           <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand">SEER</a>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/submission">Submission</Link>
-              </li>
-            </ul>
+            <span>
+              <Link to="/">Home</Link>
+              <span> | </span>
+              <Link to="/submission">Submission</Link>
+            </span>
           </nav>
 
           <Switch>

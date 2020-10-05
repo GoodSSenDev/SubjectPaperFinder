@@ -9,9 +9,7 @@ class DisplayCards extends Component {
   render() {
     this.items = [];
     this.data = this.props.data;
-    this.items.push(
-      this.data.map((elem) => <Card title={elem.title} data={elem} />)
-    );
+    this.items.push(this.data.map((elem) => <Card data={elem} />));
     return <div>{this.items}</div>;
   }
 
