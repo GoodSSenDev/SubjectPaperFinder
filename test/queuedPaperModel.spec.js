@@ -1,4 +1,3 @@
-const { doesNotMatch } = require("assert");
 const close = require("../models/connectMongo").close;
 const assert = require("assert");
 const queuedPaperModel = require("../models/queuedPaperModel");
@@ -16,13 +15,13 @@ describe("QueuedPaperModel test", function () {
     };
     await queuedPaperModel.insertNewQueuedPaper(testingPaper);
 
-    setTimeout(() => {}, 1000);
+    setTimeout(() => { }, 1000);
 
     const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
     assert.equal(arrayOfQueuedPaper[0].title, "testingTitle");
     await queuedPaperModel.deleteEveryQueuedPapers(0);
 
-    setTimeout(() => {}, 1000);
+    setTimeout(() => { }, 1000);
   });
 
   it("QueuedPaperModel should Delete Queued Paper by Id", async function () {
@@ -35,13 +34,16 @@ describe("QueuedPaperModel test", function () {
 
     await queuedPaperModel.insertNewQueuedPaper(testingPaper);
 
-    await queuedPaperModel.deleteEveryQueuedPapers(0);
+    await queuedPaperModel.deleteQueuedPaperId(0);
     const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
 
     assert.equal(arrayOfQueuedPaper.length == 0, true);
+
+
   });
 });
 
 after(() => {
+  await queuedPaperModel.deleteEveryQueuedPapers(0);
   close;
 });

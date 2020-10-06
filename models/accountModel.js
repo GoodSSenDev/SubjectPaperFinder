@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { mongoose } from "./connectMongo.js";
 import bcrypt from 'bcryptjs';
 
 const Schema = mongoose.Schema;
@@ -7,6 +7,7 @@ const Account = new Schema({
     username: String,
     password: String,
     email: String,
+    role: String,
     created: { type: Date, default: Date.now }
 });
 
