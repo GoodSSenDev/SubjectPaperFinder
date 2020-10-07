@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 
+import Axios from "axios";
+
+import store from "../store";
+import { setResults } from "../actions";
+
 class MainSearchBar extends Component {
   state = {
     value: "",
-    Controller: this.props.controller,
     StartDate: null,
     EndDate: null,
     startDate: null,
@@ -19,6 +23,10 @@ class MainSearchBar extends Component {
     this.convertDateToShort();
   }
 
+  componentDidMount() {
+    this.searchPaper();
+  }
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -27,12 +35,36 @@ class MainSearchBar extends Component {
     event.preventDefault();
   }
   handleClick(event) {
-    var data = {
-      value: this.state.value,
+    this.searchPaper();
+  }
+
+  searchPaper() {
+    var Data = {
+      text: this.state.value,
       StartDate: this.convertDateToShort(this.state.StartDate),
       EndDate: this.convertDateToShort(this.state.EndDate),
     };
-    this.state.Controller.searchPaperName(data);
+    //this.state.Controller.searchPaperName(data);
+    let config = {
+      headers: {
+        title: "Searching_Paper",
+      },
+    };
+    console.log(Data);
+    console.log("searching");
+    Axios.post("/", Data, config)
+      .then((res) => {
+        var results = res.data;
+        console.log(results);
+        if (Data.StartDate == "" && Data.EndDate == "") {
+          store.dispatch(setResults(results[0]));
+        } else {
+          store.dispatch(setResults(this.GetMatchingResults(results)));
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   setStartDate(date) {
@@ -46,11 +78,45 @@ class MainSearchBar extends Component {
 
   convertDateToShort(date) {
     if (date == null) return "";
-    console.log(date);
+    //console.log(date);
     var day = date.getDay().toString();
     var month = date.getMonth().toString();
     var year = date.getFullYear().toString();
     return day + "/" + month + "/" + year;
+  }
+
+  GetMatchingResults(results) {
+    let papername = results[0];
+    let paperdate = results[1];
+    let actual = [];
+    // console.log("Papername");
+    // console.log(papername);
+    // console.log("paperdate");
+    // console.log(paperdate);
+    var biggerResult;
+    var smallerResult;
+    if (papername.length > paperdate.length) {
+      biggerResult = papername;
+      smallerResult = paperdate;
+    } else if (papername.length <= paperdate.length) {
+      biggerResult = paperdate;
+      smallerResult = papername;
+    } else {
+      return [];
+    }
+    var i;
+    var j;
+    for (i = 0; i < biggerResult.length; i++) {
+      for (j = 0; j < smallerResult.length; j++) {
+        if (
+          biggerResult[i].author == smallerResult[j].author &&
+          biggerResult[i].title == smallerResult[j].title
+        )
+          actual.push(smallerResult[j]);
+      }
+    }
+    //console.log("actual" + actual);
+    return actual;
   }
 
   render() {

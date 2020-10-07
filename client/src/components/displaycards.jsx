@@ -9,12 +9,10 @@ class DisplayCards extends Component {
   render() {
     this.items = [];
     this.data = this.props.data;
-    this.items.push(this.data.map((elem) => <Card data={elem} />));
-    return <div>{this.items}</div>;
-  }
-
-  getState() {
-    return this.state;
+    if (this.data instanceof Array) {
+      this.items.push(this.data.map((elem) => <Card data={elem} />));
+      return <div>{this.items}</div>;
+    } else return <div>nothing</div>;
   }
 }
 

@@ -5,35 +5,36 @@ import MainSearchBar from "../components/mainsearchbar";
 import ButtonArrow from "../components/buttonarrow";
 import DisplayCards from "../components/displaycards";
 import "../App.css";
-import ViewController from "../viewcontroller";
 import TagBox from "../components/tagbox";
 import DatePickerCustom from "../components/DatePickerCustom";
+
+import store from "../store";
+import { setResults } from "../actions";
 
 class Home extends Component {
   state = {
     results: [],
-    Controller: new ViewController(this),
     searchfield: null,
   };
 
   componentDidMount = async () => {
     this.setState({
-      searchfield: <MainSearchBar controller={this.state.Controller} />,
+      searchfield: <MainSearchBar />,
     });
-    this.state.Controller.searchPaperName({
-      value: "",
-      StartDate: "",
-      EndDate: "",
+
+    const unsubscribe = store.subscribe(() => {
+      console.log("Store changed!", store.getState());
+      this.setState({ results: store.getState().results });
     });
   };
 
   render() {
     const { results, searchfield } = this.state;
+
     console.log("Home page - Rendered");
     return (
       <React.Fragment>
         {searchfield}
-        {/* <DatePickerCustom /> */}
         <TagBox titlename={"ADD TAGS"} />
         <TagBox titlename={"IGNORE TAGS"} />
         <TagBox titlename={"Refine Search"} />

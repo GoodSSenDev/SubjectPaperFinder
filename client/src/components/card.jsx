@@ -1,13 +1,17 @@
 import React, { Component } from "react";
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import PaperDetails from "../pages/PaperDetails";
+import SubmissionPage from "../pages/SubmissionPage";
 class Card extends Component {
   state = {};
   render() {
+    const backUrl = "/";
     const items = [];
     const data = this.props.data;
     let title;
     let date;
     let author = "N/A";
+
     if (data.author != undefined) author = data.author;
     if (data.date != undefined) {
       if (data.date == "00/00/0000") date = "N/A";
@@ -19,16 +23,6 @@ class Card extends Component {
       title = title.replace(/[^\w\s]/gi, "");
     }
 
-    // for (const [key, value] of Object.entries(data)) {
-    //   if (key != "title")
-    //     items.push(
-    //       <div>
-    //         <text style={{ fontWeight: "bold" }}>
-    //           {key.toUpperCase()} <body>{value}</body>
-    //         </text>
-    //       </div>
-    //     );
-    // }
     return (
       <div
         class="card shadow-sm mb-3"
@@ -52,10 +46,15 @@ class Card extends Component {
           />
           <div class="col-md-8">
             <div class="card-body">
-              <h5
-                class="card-title"
-                style={{ color: "#4f8ae8" }}
-              >{`${title}`}</h5>
+              <Link
+                to={{
+                  pathname: `${data._id}`,
+                  query: { backUrl },
+                }}
+                style={{ fontSize: "20px" }}
+              >
+                {title}
+              </Link>
               <p>
                 <span class="font-weight-bold">Author: </span>
                 {author}
