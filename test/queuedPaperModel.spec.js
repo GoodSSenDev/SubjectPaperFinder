@@ -1,9 +1,16 @@
 const close = require("../models/connectMongo").close;
 const assert = require("assert");
-const queuedPaperModel = require("../models/queuedPaperModel");
+const queuedPaperController = require("../controllers/queuedPaperController");
 
+const queuedPapers = new queuedPaperController();
+before(function () {
+  this.timeout(30000);
+})
 describe("QueuedPaperModel test", function () {
+
   it("QueuedPaperModel should insert new Paper", async function () {
+    await queuedPapers.init();
+
     const testingPaper = {
       author: "testMan",
       title: "testingTitle",
@@ -13,18 +20,21 @@ describe("QueuedPaperModel test", function () {
       month: "jul",
       annote: "Accepted for publication",
     };
-    await queuedPaperModel.insertNewQueuedPaper(testingPaper);
+    await queuedPapers.insertNewQueuedPaper(testingPaper);
 
-    setTimeout(() => { }, 1000);
+    const arrayOfQueuedPaper = await queuedPapers.getQueuedPapers();
+    console.log(arrayOfQueuedPaper[0].title);
+    let newArray = arrayOfQueuedPaper.filter(x => x.title == "testingTitle");
+    console.log(newArray.length.toString());
+    setTimeout(() => { }, 2300);
 
-    const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
-    assert.equal(arrayOfQueuedPaper[0].title, "testingTitle");
-    await queuedPaperModel.deleteEveryQueuedPapers(0);
-
-    setTimeout(() => { }, 1000);
+    assert.strictEqual(newArray.length > 0, true);
   });
 
+
   it("QueuedPaperModel should Delete Queued Paper by Id", async function () {
+    await queuedPapers.deleteEveryQueuedPapers();
+
     const testingPaper = {
       author: "testMan",
       title: "testingTitle1",
@@ -32,18 +42,19 @@ describe("QueuedPaperModel test", function () {
       year: "2008",
     };
 
-    await queuedPaperModel.insertNewQueuedPaper(testingPaper);
+    await queuedPapers.insertNewQueuedPaper(testingPaper);
 
-    await queuedPaperModel.deleteQueuedPaperId(0);
-    const arrayOfQueuedPaper = await queuedPaperModel.getQueuedPapers();
-
-    assert.equal(arrayOfQueuedPaper.length == 0, true);
-
-
+    await queuedPapers.deleteQueuedPaperId(1);
+    let arrayOfQueuedPaper = [];
+    arrayOfQueuedPaper = await queuedPapers.getQueuedPapers();
+    setTimeout(() => { }, 2300);
+    await queuedPapers.deleteEveryQueuedPapers();
+    if (arrayOfQueuedPaper) {
+      assert.strictEqual(true, true);
+    } else assert.strictEqual(false, true);
   });
 });
 
-after(() => {
-  await queuedPaperModel.deleteEveryQueuedPapers(0);
-  close;
+after(function () {
+  close();
 });
