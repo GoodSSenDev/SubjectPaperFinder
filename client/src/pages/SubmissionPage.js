@@ -1,6 +1,5 @@
+import Axios from "axios";
 import React, { Component } from "react";
-
-import ViewController from "../viewcontroller";
 
 class SubmissionPage extends Component {
   state = { title: "", author: "", journal: "" };
@@ -11,7 +10,18 @@ class SubmissionPage extends Component {
   }
   handleSubmit(event) {
     var data = this.state;
-    ViewController.submitPaper(data);
+    let config = {
+      headers: {
+        title: "Submit_Paper",
+      },
+    };
+    Axios.post("/", data, config)
+      .then((res) => {
+        console.log("Submission Sent!");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     window.alert("Submission Sent! :3");
   }
 

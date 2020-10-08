@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { render } from "@testing-library/react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "../App";
 import { act } from "react-dom/test-utils";
 import { except } from "chai";
 import DisplayCards from "../components/displaycards";
 import renderer from "react-test-renderer";
+import { setResults } from "../actions";
 const assert = require("assert");
 
 let rootContainer;
@@ -42,7 +44,11 @@ describe("Components Test", function () {
       temp.push(data);
     }
     act(() => {
-      components = renderer.create(<DisplayCards data={temp} />);
+      components = renderer.create(
+        <Router>
+          <DisplayCards data={temp} />
+        </Router>
+      );
     });
   });
 
@@ -61,7 +67,7 @@ describe("Components Test", function () {
     }
     let displaycards = <DisplayCards data={dummydata} />;
     act(() => {
-      ReactDom.render(displaycards, rootContainer);
+      ReactDom.render(<Router>{displaycards}</Router>, rootContainer);
     });
     const value = displaycards.props.data;
     assert.equal(value.length, 10);
