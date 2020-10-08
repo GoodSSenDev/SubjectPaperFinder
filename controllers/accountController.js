@@ -23,7 +23,7 @@ class accountController {
         let usernameRegex = /^[a-z0-9]+$/;
 
         if (!usernameRegex.test(user.username)) {
-            return 1;
+            return 0;
         }
 
         //password should be longer than 5 and string
@@ -52,7 +52,7 @@ class accountController {
                 throw err;
             }
         })
-        return 0;
+        return 1;
 
     }
 
@@ -94,6 +94,24 @@ class accountController {
         }
         return emailJson.email;
 
+    }
+
+    //get user info JSON
+    async getInfoJSON(username) {
+        let userJson = await accountModel.findOne({ username: username }).lean();
+        if (!userJson) {
+            return "";
+        }
+        return JSON.stringify({ username: userJson.username, email: userJson.email, role: userJson.role });
+    }
+
+    //get user info 
+    async getInfoJSON(username) {
+        let userJson = await accountModel.findOne({ username: username }).lean();
+        if (!userJson) {
+            return "";
+        }
+        return JSON.parse(userJson);
     }
 
     //get role
