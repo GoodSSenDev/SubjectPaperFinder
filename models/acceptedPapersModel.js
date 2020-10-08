@@ -1,11 +1,7 @@
-const { truncate } = require("fs");
-const close = require("./connectMongo").close;
 const mongoose = require("./connectMongo").mongoose;
 
-require("dotenv").config();
-
-const Schema = mongoose.Schema;
-const queuedPaperSchema = new Schema({
+var Schema = mongoose.Schema;
+const acceptedSchema = new Schema({
   _PId: { type: Number, required: true },
   author: { type: String, required: false },
   title: { type: String },
@@ -19,7 +15,7 @@ const queuedPaperSchema = new Schema({
   eprintclass: { type: String, required: false },
 });
 
-//model = document
 const Model = mongoose.model;
+const acceptedModel = Model("acceptedpapers", acceptedSchema);
 
-module.exports = Model("queuedpapers", queuedPaperSchema);
+module.exports.acceptedModel = acceptedModel;

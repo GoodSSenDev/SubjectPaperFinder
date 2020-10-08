@@ -1,23 +1,39 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import PaperDetails from "../pages/PaperDetails";
+import SubmissionPage from "../pages/SubmissionPage";
 class Card extends Component {
   state = {};
   render() {
+    const backUrl = "/";
     const items = [];
     const data = this.props.data;
-    for (const [key, value] of Object.entries(data)) {
-      if (key != "title")
-        items.push(
-          <div>
-            <text style={{ fontWeight: "bold" }}>{key.toUpperCase()}</text>
-            <body>{value}</body>
-          </div>
-        );
+    let title;
+    let date;
+    let author = "N/A";
+
+    if (data.author != undefined) author = data.author;
+    if (data.date != undefined) {
+      if (data.date == "00/00/0000") date = "N/A";
+      else date = data.date;
     }
+
+    if (data.title != undefined) {
+      title = data.title;
+      title = title.replace(/[^\w\s]/gi, "");
+    }
+
     return (
       <div
-        class="card mb-3"
+        class="card shadow-sm mb-3"
         style={{ maxwidth: "200px", marginRight: "20px", marginLeft: "20px" }}
       >
+        <body
+          class="shadow-none p-2 bg-light rounded"
+          style={{ textAlign: "right", color: "#8f8f8f" }}
+        >
+          {date}
+        </body>
         <div class="row no-gutters">
           <div class="col-md-4"></div>
           <vl
@@ -30,11 +46,19 @@ class Card extends Component {
           />
           <div class="col-md-8">
             <div class="card-body">
-              <h5
-                class="card-title"
-                style={{ color: "#4f8ae8" }}
-              >{`${this.props.title}`}</h5>
-              {items}
+              <Link
+                to={{
+                  pathname: `${data._id}`,
+                  query: { backUrl },
+                }}
+                style={{ fontSize: "20px" }}
+              >
+                {title}
+              </Link>
+              <p>
+                <span class="font-weight-bold">Author: </span>
+                {author}
+              </p>
             </div>
           </div>
         </div>

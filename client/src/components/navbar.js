@@ -12,15 +12,11 @@ class NavBar extends Component {
       <Router>
         <div>
           <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand">SEER</a>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/submission">Submission</Link>
-              </li>
-            </ul>
+            <a class="navbar-brand">
+              SEER <Link to="/">Home</Link>
+            </a>
+
+            <Link to="/submission">Submission</Link>
           </nav>
         </div>
         <Switch>

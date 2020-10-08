@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -15,10 +16,12 @@
     "react": "^16.13.1",
     "react-datepicker": "^3.2.2",
     "react-dom": "^16.13.1",
+    "react-native": "^0.63.3",
     "react-router-dom": "^5.2.0",
     "react-script": "^2.0.5",
     "react-scripts": "^3.4.3",
     "react-test-renderer": "^16.13.1",
+    "redux": "^4.0.5",
     "shallowequal": "^1.1.0"
   },
   "scripts": {

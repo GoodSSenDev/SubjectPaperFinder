@@ -36,15 +36,14 @@ app.get("*", (req, res) => {
 app.post("/", async function (req, res) {
   var header = req.header("title");
   var data = req.body;
-  //console.log(header);
+  console.log(header);
   if (header == "Searching_Paper") {
     var paperDataDate = [];
     var paperDataName = [];
-    console.log(data);
-    if (data.startDate != "" && data.endDate != "") {
+    if (data.StartDate != "" && data.EndDate != "") {
       const paperdate = searchByDateController.getPapers([
-        data.startDate,
-        data.endDate,
+        data.StartDate,
+        data.EndDate,
       ]);
       paperdate.then((paperdate) => {
         paperDataDate = paperdate;
@@ -53,8 +52,10 @@ app.post("/", async function (req, res) {
     console.log(data.text);
     const papers = searchController.getPapers(data.text);
     papers.then((paperData) => {
-      //console.log("requested papers");
+      console.log("requested papers");
       paperDataName = paperData;
+      // console.log(paperDataName);
+      // console.log(paperDataDate);
       res.send([paperDataName, paperDataDate]);
     });
   } else if (header == "Submit_Paper") {
