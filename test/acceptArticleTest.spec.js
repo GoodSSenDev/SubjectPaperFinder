@@ -1,6 +1,6 @@
 const assert = require("assert");
 const close = require("../models/connectMongo").close;
-const queuedPapers = require("../models/connectMongo").queuedPapers;
+const queuedPapers = require("../models/queuedPaperModel");
 const acceptedModel = require("../models/acceptedPapersModel").acceptedModel;
 const moveDocument = require("../controllers/acceptArticleController").moveDocument;
 
