@@ -30,7 +30,7 @@ describe("Result Page display Tests", function () {
     });
   });
 
-  it("Get Results", function () {
+  it("Get Amount of Results", function () {
     let dummyArray = [
       { year: 2016, month: "mar", date: "00/03/2016" },
       { year: 2018, date: "00/00/2018" },

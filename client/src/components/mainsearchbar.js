@@ -20,6 +20,7 @@ class MainSearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePress = this.handlePress.bind(this);
     this.convertDateToShort();
   }
 
@@ -37,6 +38,11 @@ class MainSearchBar extends Component {
   handleClick(event) {
     this.searchPaper();
   }
+  handlePress(event) {
+    if (event.key === "Enter") {
+      this.searchPaper();
+    }
+  }
 
   searchPaper() {
     var Data = {
@@ -44,14 +50,11 @@ class MainSearchBar extends Component {
       StartDate: this.convertDateToShort(this.state.StartDate),
       EndDate: this.convertDateToShort(this.state.EndDate),
     };
-    //this.state.Controller.searchPaperName(data);
     let config = {
       headers: {
         title: "Searching_Paper",
       },
     };
-    console.log(Data);
-    console.log("searching");
     Axios.post("/", Data, config)
       .then((res) => {
         var results = res.data;
@@ -78,7 +81,6 @@ class MainSearchBar extends Component {
 
   convertDateToShort(date) {
     if (date == null) return "";
-    //console.log(date);
     var day = date.getDay().toString();
     var month = date.getMonth().toString();
     var year = date.getFullYear().toString();
@@ -89,10 +91,6 @@ class MainSearchBar extends Component {
     let papername = results[0];
     let paperdate = results[1];
     let actual = [];
-    // console.log("Papername");
-    // console.log(papername);
-    // console.log("paperdate");
-    // console.log(paperdate);
     var biggerResult;
     var smallerResult;
     if (papername.length > paperdate.length) {
@@ -115,7 +113,6 @@ class MainSearchBar extends Component {
           actual.push(smallerResult[j]);
       }
     }
-    //console.log("actual" + actual);
     return actual;
   }
 
@@ -146,6 +143,7 @@ class MainSearchBar extends Component {
             aria-describedby="basic-addon1"
             value={this.state.value}
             onChange={this.handleChange}
+            onKeyDown={this.handlePress}
           ></input>
           <button
             type="button"

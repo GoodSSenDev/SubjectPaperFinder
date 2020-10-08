@@ -12,14 +12,14 @@ class PaperDetails extends Component {
     let data = window.location.pathname;
     data = data.replace("/", "");
     const results = store.getState().results;
-    const displayedResult = results.find((result) => result._id === data);
+    const displayedPaper = results.find((result) => result._id === data);
 
     let items = [];
-    for (const key in displayedResult) {
+    for (const key in displayedPaper) {
       items.push(
         <div style={{ marginTop: "20px" }}>
           <h3>{key.toUpperCase()}</h3>
-          <p>{displayedResult[key]}</p>
+          <p>{displayedPaper[key]}</p>
         </div>
       );
     }
