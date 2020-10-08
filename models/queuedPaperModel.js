@@ -1,6 +1,6 @@
 const { truncate } = require("fs");
 const close = require("./connectMongo").close;
-const QueuedPapers = require("./connectMongo").QueuedPapers;
+const QueuedPapers = require("./connectMongo").queuedPapers;
 require("./connectMongo");
 require("dotenv").config();
 

@@ -56,7 +56,7 @@ const queuedPaperSchema = new Schema({
 
 //model = document
 const Model = mongoose.model;
-const QueuedPapers = Model("queuedpapers", queuedPaperSchema);
+const queuedPapers = Model("queuedpapers", queuedPaperSchema);
 
 function close() {
   mongoose.connection.close();
@@ -64,4 +64,5 @@ function close() {
 
 exports.close = close;
 exports.paperRecordModel = paperRecordModel;
-exports.QueuedPapers = QueuedPapers;
+exports.queuedPapers = queuedPapers;
+exports.mongoose = mongoose;
