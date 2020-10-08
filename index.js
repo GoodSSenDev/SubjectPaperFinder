@@ -3,7 +3,8 @@ const express = require("express");
 const paperController = require("./controllers/papersController");
 const searchController = require("./controllers/searchByNameController");
 const searchByDateController = require("./controllers/searchByDateController");
-const queuedPaperModelController = require("./controllers/queuedPaperModelController");
+const queuedPaperController = require("./controllers/queuedPaperController");
+const accountRouter = require('../routes/account-rounter');
 
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -13,6 +14,8 @@ const { sayHello } = require("./test");
 const { getPaperByName } = require("./models/searchByName");
 
 app.use(express.static(path.join(__dirname, "client/build")));
+
+app.use('/account', accountRouter);
 
 app.get("/", function (req, res) {
   res.send("<h1>  </h1>");
@@ -57,8 +60,8 @@ app.post("/", async function (req, res) {
     });
   } else if (header == "Submit_Paper") {
     console.log("Submitting paper");
-    const submission = new queuedPaperModelController();
-    await submission.insertNewPaper(data);
+    const submission = new queuedPaperController();
+    await submission.insertNewQueuedPaper(data);
     res.send(true);
     console.log("Submitted paper");
   }

@@ -38,6 +38,7 @@ var paperSchema = new SchemaDate({
 //create model based on schema
 var paperRecordModel = mongoose.model("papers", paperSchema);
 
+
 //Choosing papers document schema to get collect data set
 const Schema = mongoose.Schema;
 const queuedPaperSchema = new Schema({
@@ -58,11 +59,14 @@ const queuedPaperSchema = new Schema({
 const Model = mongoose.model;
 const queuedPapers = Model("queuedpapers", queuedPaperSchema);
 
+
 function close() {
   mongoose.connection.close();
 }
 
+exports.mongoose = mongoose;
 exports.close = close;
+
 exports.paperRecordModel = paperRecordModel;
 exports.queuedPapers = queuedPapers;
 exports.mongoose = mongoose;
