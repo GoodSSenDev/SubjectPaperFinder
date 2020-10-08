@@ -23,9 +23,7 @@ describe("QueuedPaperModel test", function () {
     await queuedPapers.insertNewQueuedPaper(testingPaper);
 
     const arrayOfQueuedPaper = await queuedPapers.getQueuedPapers();
-    console.log(arrayOfQueuedPaper[0].title);
     let newArray = arrayOfQueuedPaper.filter(x => x.title == "testingTitle");
-    console.log(newArray.length.toString());
     setTimeout(() => { }, 2300);
 
     assert.strictEqual(newArray.length > 0, true);
@@ -33,8 +31,6 @@ describe("QueuedPaperModel test", function () {
 
 
   it("QueuedPaperModel should Delete Queued Paper by Id", async function () {
-    await queuedPapers.deleteEveryQueuedPapers();
-
     const testingPaper = {
       author: "testMan",
       title: "testingTitle1",
@@ -48,7 +44,9 @@ describe("QueuedPaperModel test", function () {
     let arrayOfQueuedPaper = [];
     arrayOfQueuedPaper = await queuedPapers.getQueuedPapers();
     setTimeout(() => { }, 2300);
-    await queuedPapers.deleteEveryQueuedPapers();
+
+    await queuedPapers.deleteQueuedPaperAuthor("testMan");
+
     if (arrayOfQueuedPaper) {
       assert.strictEqual(true, true);
     } else assert.strictEqual(false, true);

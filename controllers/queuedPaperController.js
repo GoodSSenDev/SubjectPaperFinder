@@ -26,7 +26,6 @@ class queuedPaperModelController {
 
   async getQueuedPapers() {
     let jsonArray = await queuedPaperModel.find().lean();
-    console.log("jsonArray  -> " + jsonArray.toString());
 
     if (jsonArray.length != 0) {
       this.papers = [];
@@ -78,6 +77,19 @@ class queuedPaperModelController {
 
     return this.papers = this.papers.filter((x) => x._PId !== PId);
   }
+
+  async deleteQueuedPaperAuthor(author) {
+    //if insertNewPaper success it will return true
+    await queuedPaperModel.deleteMany({ author: author }).catch((err) => {
+      if (err) {
+        console.log(err);
+        return this.papers;
+      }
+    });
+
+    return this.papers = this.papers.filter((x) => x.author !== author);
+  }
+
 
   async deleteEveryQueuedPapers() {
     await queuedPaperModel.deleteMany({}).catch((err) => {

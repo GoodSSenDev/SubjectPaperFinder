@@ -1,7 +1,22 @@
 const accountModel = require("../models/accountModel.js");
+const mongoose = require("../models/connectMongo.js").mongoose;
 
 class accountController {
 
+
+    constructor() {
+        if (accountController.exist) {
+            return accountController.instance;
+        }
+
+        this._accountModel = accountModel;
+        this.accountModelInstance = new accountModel();
+        accountController.instance = this;
+
+        accountController.exist = true;
+
+        return this;
+    }
 
     async registerAccount(user) {
 
@@ -15,45 +30,35 @@ class accountController {
         if (user.password.length < 5 || typeof user.password !== "string") {
             return 2;
         }
+
         //check the username already exist
-        accountModel.findOne({ username: user.username }, (error, exists) => {
-            if (error) throw error;
+        let isUsernameExist = await this.checkUser(user.username);
 
-            //the username already exist 
-            if (exists) {
-                return 3;
-            }
+        if (isUsernameExist)
+            return 3;
 
-            let account = new accountModel({
-                username: user.username,
-                password: user.password,
-                email: user.email,
-                role: user.role,
-            });
-            //encrypt it with hash
-            account.password = account.generateHash(account.password);
 
-            account.save(error => {
-                if (error) throw error;
-
-                return 0;
-            });
-
+        let account = new accountModel({
+            username: user.username,
+            password: user.password,
+            email: user.email,
+            role: user.role,
         });
+        //encrypt it with hash
+        account.password = account.generateHash(account.password);
 
+        await accountModel.collection.insertOne(account).catch((err) => {
+            if (err) {
+                throw err;
+            }
+        })
+        return 0;
 
     }
 
     async checkUser(username) {
         //check the username already exist
-        accountModel.findOne({ username: username }, (error, exists) => {
-            if (error) throw error;
-
-            if (exists) { return true; }
-
-        });
-
-        return false;
+        return await accountModel.exists({ username: username }).catch((err) => { if (err) throw err });
     }
 
 
@@ -64,63 +69,59 @@ class accountController {
             return 0;
         }
 
-        accountModel.findOne({ username: username }, (error, account) => {
+        let jsonDoc = await accountModel.findOne({ username: username }).lean();
 
-            if (error) throw error;
 
-            //user not not exisiting 
-            if (!account) {
-                return 2;
-            }
+        //user not not exisiting 
+        if (!jsonDoc) {
+            return 2;
+        }
 
-            //check password if passwords is wrong 
-            if (!account.validateHash(password)) {
-                return 0;
-            }
+        //check password if passwords is wrong 
+        if (!this.accountModelInstance.compareHash(password, jsonDoc.password)) {
+            return 0;
+        }
 
-            return 1;
-        });
+        return 1;
     }
 
     //get email
     async getEmail(username) {
 
-        accountModel.findOne({ username: username }, (error, account) => {
-
-            if (error) throw error;
-
-            //user not not exisiting 
-            if (!account) {
-                return "";
-            }
-
-            return account.email;
-        });
-
+        let emailJson = await accountModel.findOne({ username: username }).lean();
+        if (!emailJson) {
+            return "";
+        }
+        return emailJson.email;
 
     }
 
-    //get email
+    //get role
     async getRole(username) {
 
-        accountModel.findOne({ username: username }, (error, account) => {
-
-            if (error) throw error;
-
-            //user not not exisiting 
-            if (!account) {
-                return "";
-            }
-
-            return account.role;
-        });
+        let roleJson = await accountModel.findOne({ username: username }).lean();
+        if (!roleJson) {
+            return "";
+        }
+        return roleJson.role;
     }
 
     //delete every documents
-    deleteEveryAccount() {
-        accountModel.deleteMany({});
+    async deleteAccount(username) {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+
+        await accountModel.deleteOne({ username: username }).session(session);
+
+        await session.commitTransaction();
+        session.endSession();
+    }
+
+    //delete every documents
+    async deleteEveryAccount() {
+        await accountModel.deleteMany({});
     }
 
 }
 
-module.exports.accountController = accountController;
+module.exports = accountController;
