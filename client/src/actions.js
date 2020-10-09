@@ -6,3 +6,19 @@ export const setResults = (results) => {
     payload: results,
   };
 };
+
+export const setSort = (value) => {
+  var type;
+  console.log(value);
+  if (value == "ascending") {
+    type = actions.ASCENDING_ORDER;
+  } else if (value == "descending") {
+    type = actions.DESCENDING_ORDER;
+  } else {
+    type = actions.NO_ORDER;
+  }
+  return {
+    type: type,
+    payload: value,
+  };
+};

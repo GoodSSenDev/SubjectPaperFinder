@@ -4,7 +4,7 @@ const paperController = require("./controllers/papersController");
 const searchController = require("./controllers/searchByNameController");
 const searchByDateController = require("./controllers/searchByDateController");
 const queuedPaperController = require("./controllers/queuedPaperController");
-const accountRouter = require('../routes/account-rounter');
+const accountRouter = require("./routes/account-router");
 
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -15,7 +15,7 @@ const { getPaperByName } = require("./models/searchByName");
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.use('/account', accountRouter);
+app.use("/account", accountRouter);
 
 app.get("/", function (req, res) {
   res.send("<h1>  </h1>");
