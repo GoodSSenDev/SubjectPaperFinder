@@ -1,8 +1,29 @@
 exports.ascendingSort = (arr) => {
   //selection sort
   {
-    console.log("Before");
-    console.log(arr);
+    // let dates = [];
+    // let i;
+    // for (i = 0; i < arr.length; i++) {
+    //   const datestr = arr[i].date;
+    //   const datesplit = datestr.split("/");
+
+    //   var dateObject = new Date(datesplit[2], datesplit[1] - 1, datesplit[0]);
+    //   dates.push(dateObject);
+    // }
+
+    // let sorted = dates.sort(function (a, b) {
+    //   if (a < b) {
+    //     return -1;
+    //   } else if (a == b) {
+    //     return 0;
+    //   } else {
+    //     return 1;
+    //   }
+    // });
+
+    // console.log(sorted);
+    // console.log("Before");
+    // console.log(arr);
     var len = arr.length;
     var earlyIndex, temp;
     var date1 = [];
@@ -32,6 +53,7 @@ exports.ascendingSort = (arr) => {
     }
     console.log("After");
     console.log(arr);
+
     return arr;
   }
 };

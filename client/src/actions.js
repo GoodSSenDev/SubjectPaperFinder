@@ -7,6 +7,13 @@ export const setResults = (results) => {
   };
 };
 
+export const setUser = (user) => {
+  return {
+    type: actions.SET_USER,
+    payload: user,
+  };
+};
+
 export const setSort = (value) => {
   var type;
   console.log(value);

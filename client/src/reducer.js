@@ -4,12 +4,16 @@ import * as sort from "./sortingbydate";
 const INIT_STATE = {
   results: [],
   display: sort.noSort,
+  user: "",
 };
 
 export default function reducer(state = INIT_STATE, action) {
   switch (action.type) {
     case actions.GET_RESULTS: {
       return { ...state, results: state.display(action.payload) };
+    }
+    case actions.SET_USER: {
+      return { ...state, user: action.payload };
     }
     case actions.ASCENDING_ORDER: {
       return {

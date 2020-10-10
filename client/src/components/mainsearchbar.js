@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 
 import Axios from "axios";
 
-import store from "../store";
+import { store } from "../store";
 import { setResults } from "../actions";
 
 class MainSearchBar extends Component {

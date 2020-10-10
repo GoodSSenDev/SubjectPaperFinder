@@ -54,8 +54,6 @@ app.post("/", async function (req, res) {
     papers.then((paperData) => {
       console.log("requested papers");
       paperDataName = paperData;
-      // console.log(paperDataName);
-      // console.log(paperDataDate);
       res.send([paperDataName, paperDataDate]);
     });
   } else if (header == "Submit_Paper") {

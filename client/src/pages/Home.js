@@ -9,7 +9,7 @@ import TagBox from "../components/tagbox";
 import DatePickerCustom from "../components/DatePickerCustom";
 import DropDownSort from "../components/dropdownSort";
 
-import store from "../store";
+import {store} from "../store";
 import { setResults } from "../actions";
 
 class Home extends Component {

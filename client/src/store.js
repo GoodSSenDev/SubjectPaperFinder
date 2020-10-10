@@ -1,6 +1,21 @@
-import { createStore } from "redux";
+import React from 'react';
+import { createStore , applyMiddleware  } from "redux";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import { persistReducer, persistStore } from "redux-persist"
+import storage from "redux-persist/lib/storage"
 import reducer from "./reducer";
 
-const store = createStore(reducer);
+const persistConfig ={
+    key: 'user',
+    storage: storage,
+    whitelist: ['user']
+}
+const pReducer = persistReducer(persistConfig, reducer);
 
-export default store;
+const middleware = applyMiddleware(thunk, logger);
+const store = createStore(pReducer, middleware); 
+
+const persistor = persistStore(store)
+
+export  { persistor , store };
