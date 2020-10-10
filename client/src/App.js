@@ -6,6 +6,7 @@ import DisplayCards from "./components/displaycards";
 import "./App.css";
 import TagBox from "./components/tagbox";
 import DatePickerCustom from "./components/DatePickerCustom";
+import ProfileButton from "./components/profilebutton";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import SubmissionPage from "./pages/SubmissionPage";
@@ -13,9 +14,11 @@ import PaperDetails from "./pages/PaperDetails";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Profile from "./pages/profile";
 
 import { store } from "./store";
 import { setUser } from "./actions";
+import { link } from "fs";
 
 class App extends Component {
   state = {user: ""};
@@ -23,20 +26,12 @@ class App extends Component {
   renderNavBar(){
     let links = [];
 
-    links.push( <a href="/" class="btn btn-outline-primary" role="button" aria-pressed="true" style={{marginRight: "10px"}}>Home</a>);
+    links.push( <a href="/" class="btn btn-outline-dark" role="button" aria-pressed="true" >Home</a>);
     if(this.state.user == ""){
-      links.push( <a href="/login" class="btn btn-outline-primary" role="button" aria-pressed="true" style={{marginRight: "10px"}}>Login</a>);
+      links.push( <a href="/login" class="btn btn-outline-dark" role="button" aria-pressed="true" >Login</a>);
     }else{
-
-      links.push( <a href="/submission" class="btn btn-outline-primary" role="button" aria-pressed="true" style={{marginRight: "10px"}}>Submit Paper</a>);
-      links.push(         <button
-        type="button"
-        class="btn btn-danger"
-        onClick={this.logout}
-        role="button" aria-pressed="true" style={{marginRight: "10px"}}
-      >
-        Log out
-      </button>);
+      links.push( <a href="/submission" class="btn btn-outline-dark" role="button" aria-pressed="true" >Submit Paper</a>);
+      links.push(<ProfileButton/>)  
     }
     return links;
   }
@@ -57,8 +52,17 @@ class App extends Component {
           <nav class="navbar navbar-light bg-light">
             <a  href="/" class="navbar-brand">SEER</a>
             <span>
-            {this.renderNavBar()}
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-1000">
+                    <div class="btn-group">
+                      {this.renderNavBar()}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </span>
+
           </nav>
 
           <Switch>
@@ -69,6 +73,9 @@ class App extends Component {
               <SignUp />
             </Route>
             <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/profile">
               <Login />
             </Route>
             <Route path="/:paper">

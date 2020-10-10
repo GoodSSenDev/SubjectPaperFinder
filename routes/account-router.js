@@ -73,14 +73,15 @@ router.post('/getInfo', async (req, res) => {
         { username: req.body.username }
     );
     if (!info) {
-
-        return res.status(400).json({
+        return res.send({
             success: false,
             error: "USERNAME NOT EXIST",
             code: 5
-        });
+        })
     } else {
-        res.json(info);
+        return res.send({
+            info: info,
+        })
     }
 });
 
