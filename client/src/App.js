@@ -18,7 +18,6 @@ import Profile from "./pages/profile";
 
 import { store } from "./store";
 import { setUser } from "./actions";
-import { link } from "fs";
 
 class App extends Component {
   state = {user: ""};
@@ -33,7 +32,19 @@ class App extends Component {
       links.push( <a href="/submission" class="btn btn-outline-dark" role="button" aria-pressed="true" >Submit Paper</a>);
       links.push(<ProfileButton/>)  
     }
-    return links;
+
+    return (
+    <span>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1000">
+            <div class="btn-group">
+              {links}
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>);
   }
 
   logout(){
@@ -51,18 +62,7 @@ class App extends Component {
         <div>
           <nav class="navbar navbar-light bg-light">
             <a  href="/" class="navbar-brand">SEER</a>
-            <span>
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-1000">
-                    <div class="btn-group">
-                      {this.renderNavBar()}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </span>
-
+            {this.renderNavBar()}
           </nav>
 
           <Switch>
@@ -76,7 +76,7 @@ class App extends Component {
               <Login />
             </Route>
             <Route path="/profile">
-              <Login />
+              <Profile />
             </Route>
             <Route path="/:paper">
               <PaperDetails />

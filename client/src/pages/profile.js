@@ -6,14 +6,16 @@ class Profile extends Component {
     state = {  
         data: [],
     }
-
-    componentDidMount(){
+    
+    render() { 
+        console.log(store.getState().user)
         let data = {
             username: store.getState().user,
         }
         Axios.post("/account/getInfo", data)
         .then((res) => {
             let items = [];
+            console.log(res)
             for (const key in res.body) {
             items.push(
                 <div style={{ marginTop: "20px" }}>
@@ -27,9 +29,7 @@ class Profile extends Component {
         .catch((err) => {
           console.error(err);
         });
-    }
-    render() { 
-        return ( <div></div> );
+        return ( <div>{this.state.data}</div> );
     }
 }
  

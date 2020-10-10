@@ -8,12 +8,13 @@ class ProfileButton extends Component {
     state = {  }
     logout(){
         store.dispatch(setUser(""))
-      }
+    }
     render() { 
         return (
             <Dropdown>
-                <Dropdown.Toggle id="btn btn-outline-primary" title="profile">
-                     <svg
+                <Dropdown.Toggle id="dropdown-basic-button" title="profile">
+                    <span>{store.getState().user + " "}</span>
+                    <svg
                         width="2em"
                         height="2em"
                         viewBox="0 0 16 16"
@@ -29,7 +30,7 @@ class ProfileButton extends Component {
 
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={this.logout.bind(this)}>Log out</Dropdown.Item>
-                    <Dropdown.Item eventKey="2">View Profile</Dropdown.Item>
+                    <Dropdown.Item href="/profile">View Profile</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             

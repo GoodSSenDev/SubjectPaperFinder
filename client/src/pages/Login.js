@@ -95,7 +95,7 @@ class Login extends Component {
                 />
               </div>
             </div>
-            <p style={{marginLeft: "100px"}}><a href="/signup"> Don't Have an account click here! </a></p>
+            <p style={{marginLeft: "100px"}}><a href="/signup"> Don't Have an account? click here! </a></p>
             
             <button
               type="button"

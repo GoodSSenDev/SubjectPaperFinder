@@ -68,7 +68,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/getInfo', async (req, res) => {
-
+    console.log(req.body)
     let info = await accountPaperController.getInfoJSON(
         { username: req.body.username }
     );
