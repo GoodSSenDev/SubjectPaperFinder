@@ -44,6 +44,7 @@ exports.ascendingSort = (arr) => {
 
         if (datenum2 < datenum1) {
           earlyIndex = j;
+          datenum1 = datenum2;
         }
       }
 
@@ -82,6 +83,7 @@ exports.descendingSort = (arr) => {
 
         if (datenum1 < datenum2) {
           earlyIndex = j;
+          datenum1 = datenum2;
         }
       }
 

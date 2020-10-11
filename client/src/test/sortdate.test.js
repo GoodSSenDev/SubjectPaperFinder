@@ -147,7 +147,7 @@ describe("Sorting Date", function () {
       }
     }
     //change this
-    assert.equal(true, true);
+    assert.equal(true, correct);
   });
 
   it("check if descending", () => {
@@ -297,6 +297,6 @@ describe("Sorting Date", function () {
       }
     }
     //change this
-    assert.equal(true, true);
+    assert.equal(true, correct);
   });
 });
