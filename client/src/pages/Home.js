@@ -7,8 +7,9 @@ import DisplayCards from "../components/displaycards";
 import "../App.css";
 import TagBox from "../components/tagbox";
 import DatePickerCustom from "../components/DatePickerCustom";
+import DropDownSort from "../components/dropdownSort";
 
-import store from "../store";
+import {store} from "../store";
 import { setResults } from "../actions";
 
 class Home extends Component {
@@ -48,6 +49,8 @@ class Home extends Component {
           }}
         />
         <p style={{ marginLeft: "10px" }}>Showing {results.length} Results:</p>
+        <DropDownSort />
+
         <DisplayCards data={results} />
       </React.Fragment>
     );

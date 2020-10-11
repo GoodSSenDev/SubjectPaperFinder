@@ -6,3 +6,26 @@ export const setResults = (results) => {
     payload: results,
   };
 };
+
+export const setUser = (user) => {
+  return {
+    type: actions.SET_USER,
+    payload: user,
+  };
+};
+
+export const setSort = (value) => {
+  var type;
+  console.log(value);
+  if (value == "ascending") {
+    type = actions.ASCENDING_ORDER;
+  } else if (value == "descending") {
+    type = actions.DESCENDING_ORDER;
+  } else {
+    type = actions.NO_ORDER;
+  }
+  return {
+    type: type,
+    payload: value,
+  };
+};

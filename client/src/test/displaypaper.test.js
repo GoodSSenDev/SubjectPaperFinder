@@ -6,7 +6,7 @@ import { except } from "chai";
 import renderer from "react-test-renderer";
 import PaperDetails from "../pages/PaperDetails";
 
-import store from "../store";
+import { store } from "../store";
 import { setResults } from "../actions";
 
 const assert = require("assert");
