@@ -1,4 +1,3 @@
-const { BeforeAll } = require("cucumber");
 const express = require("express");
 const bodyParser = require("body-parser");
 const accountPaperControl = require("../controllers/accountController");
