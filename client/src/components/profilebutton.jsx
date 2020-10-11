@@ -11,7 +11,7 @@ class ProfileButton extends Component {
     }
     render() { 
         return (
-            <Dropdown>
+            <Dropdown >
                 <Dropdown.Toggle id="dropdown-basic-button" title="profile">
                     <span>{store.getState().user + " "}</span>
                     <svg

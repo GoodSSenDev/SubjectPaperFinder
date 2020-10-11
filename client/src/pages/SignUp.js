@@ -1,10 +1,9 @@
-import {store} from "../store";
+import { store } from "../store";
 import { setUser } from "../actions";
 
 import Axios from "axios";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-
 
 class SignUp extends Component {
   state = {
@@ -22,34 +21,33 @@ class SignUp extends Component {
   }
 
   handleSubmit(event) {
-
-      if(!this.checkSamePassword(this.state.password,this.state.password2)){
-        window.alert("Password don't match!");
-        return;
-      }
-      var data = {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
-        role: "user"
-      }
-      //console.log(data);
-      Axios.post("/account/signup", data)
+    if (!this.checkSamePassword(this.state.password, this.state.password2)) {
+      window.alert("Password don't match!");
+      return;
+    }
+    var data = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      role: "user",
+    };
+    //console.log(data);
+    Axios.post("/account/signup", data)
       .then((res) => {
         console.log(res);
-        switch(res.data.code){
-          case(0):
+        switch (res.data.code) {
+          case 0:
             window.alert(res.data.error);
             break;
-          case(1):
+          case 1:
             window.alert("Successfully Signed Up! :3");
-            store.dispatch(setUser(this.state.username))
-            this.setState({success: true});
+            store.dispatch(setUser(this.state.username));
+            this.setState({ success: true });
             break;
-          case(2):
+          case 2:
             window.alert(res.data.error);
             break;
-          case(3):
+          case 3:
             window.alert(res.data.error);
             break;
           default:
@@ -60,16 +58,15 @@ class SignUp extends Component {
       .catch((err) => {
         console.error(err);
       });
-    
   }
 
-  checkSamePassword(p1,p2){
-    if(p1 != p2)return false;
+  checkSamePassword(p1, p2) {
+    if (p1 != p2) return false;
     else return true;
   }
 
   render() {
-    if(this.state.success) return <Redirect to="/"/>
+    if (this.state.success) return <Redirect to="/" />;
     return (
       <form>
         <div style={{ marginLeft: "100px", marginTop: "100px" }}>

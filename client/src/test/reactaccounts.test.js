@@ -26,14 +26,19 @@ afterEach(() => {
 });
 
 describe("Result Page display Tests", function () {
-    it("Renders Login page correctly", function () {
-      act(() => {
-        renderer.create(<Login />);
-      });
+  it("Renders Login page correctly", function () {
+    act(() => {
+      renderer.create(<Login />);
     });
-    it("Renders signup page correctly", function () {
-        act(() => {
-          renderer.create(<SignUp />);
-        });
-      });
+  });
+  it("Renders signup page correctly", function () {
+    act(() => {
+      renderer.create(<SignUp />);
+    });
+  });
+  it("Check Sign up interacts with server", function () {
+    act(() => {
+      renderer.create(<SignUp />);
+    });
+  });
 });

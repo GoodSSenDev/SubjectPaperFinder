@@ -14,41 +14,71 @@ import PaperDetails from "./pages/PaperDetails";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import Profile from "./pages/profile";
+import Profile from "./pages/ProfilePage";
 
 import { store } from "./store";
 import { setUser } from "./actions";
 
 class App extends Component {
-  state = {user: ""};
+  state = { user: "" };
 
-  renderNavBar(){
+  renderNavBar() {
     let links = [];
 
-    links.push( <a href="/" class="btn btn-outline-dark" role="button" aria-pressed="true" >Home</a>);
-    if(this.state.user == ""){
-      links.push( <a href="/login" class="btn btn-outline-dark" role="button" aria-pressed="true" >Login</a>);
-    }else{
-      links.push( <a href="/submission" class="btn btn-outline-dark" role="button" aria-pressed="true" >Submit Paper</a>);
-      links.push(<ProfileButton/>)  
+    links.push(
+      <a
+        href="/"
+        class="btn btn-outline-dark"
+        role="button"
+        aria-pressed="true"
+      >
+        Home
+      </a>
+    );
+    if (this.state.user == "") {
+      links.push(
+        <a
+          href="/login"
+          class="btn btn-outline-dark"
+          role="button"
+          aria-pressed="true"
+        >
+          Login
+        </a>
+      );
+    } else {
+      links.push(
+        <a
+          href="/submission"
+          class="btn btn-outline-dark"
+          role="button"
+          aria-pressed="true"
+        >
+          Submit Paper
+        </a>
+      );
+      links.push(
+        <div aria-pressed="true">
+          <ProfileButton />
+        </div>
+      );
     }
 
     return (
-    <span>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1000">
-            <div class="btn-group">
-              {links}
+      <span>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-1000">
+              <div class="btn-group">{links}</div>
             </div>
           </div>
         </div>
-      </div>
-    </span>);
+      </span>
+    );
   }
 
-  logout(){
-    store.dispatch(setUser(""))
+  logout() {
+    store.dispatch(setUser(""));
   }
 
   render() {
@@ -61,7 +91,9 @@ class App extends Component {
       <Router>
         <div>
           <nav class="navbar navbar-light bg-light">
-            <a  href="/" class="navbar-brand">SEER</a>
+            <a href="/" class="navbar-brand">
+              SEER
+            </a>
             {this.renderNavBar()}
           </nav>
 
