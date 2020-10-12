@@ -61,3 +61,5 @@ router.post("/delete-tag-by-id", async (req, res) => {
         success: success,
     });
 });
+
+module.exports = router;

@@ -7,6 +7,8 @@ const queuedPaperController = require("./controllers/queuedPaperController");
 
 const accountRouter = require("./routes/account-router");
 const tagRouter = require("./routes/tag-router")
+const paperRouter = require("./routes/paper-router")
+const searchRouter = require("./routes/search-router")
 
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -20,6 +22,8 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/tag",tagRouter);
 app.use("/account", accountRouter);
+app.use("/paper", paperRouter);
+app.use("/search", searchRouter);
 
 app.get("/", function (req, res) {
   res.send("<h1>  </h1>");
