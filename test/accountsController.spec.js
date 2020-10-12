@@ -67,5 +67,4 @@ describe("account Control test", function () {
 
 after(async function () {
     await accountController.deleteEveryAccount();
-    close();
 })   

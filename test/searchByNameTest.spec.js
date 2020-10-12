@@ -41,5 +41,4 @@ describe("Mongoose", function() {
 });
 
 after(function() {
-    close();
 });
