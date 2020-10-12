@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import NavBar from "./components/navbar";
-import MainSearchBar from "./components/mainsearchbar";
-import ButtonArrow from "./components/buttonarrow";
-import DisplayCards from "./components/displaycards";
+
+import seerlogo from "./seerlogo.png";
+
 import "./App.css";
-import TagBox from "./components/tagbox";
-import DatePickerCustom from "./components/DatePickerCustom";
 import ProfileButton from "./components/profilebutton";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -20,7 +17,9 @@ import { store } from "./store";
 import { setUser } from "./actions";
 
 class App extends Component {
-  state = { user: "" };
+  state = {
+    user: "",
+  };
 
   renderNavBar() {
     let links = [];
@@ -92,7 +91,7 @@ class App extends Component {
         <div>
           <nav class="navbar navbar-light bg-light">
             <a href="/" class="navbar-brand">
-              SEER
+              <img src={seerlogo} alt="SEER"></img>
             </a>
             {this.renderNavBar()}
           </nav>
