@@ -6,6 +6,7 @@ const searchByDateController = require("./controllers/searchByDateController");
 const queuedPaperController = require("./controllers/queuedPaperController");
 
 const accountRouter = require("./routes/account-router");
+const tagRouter = require("./routes/tag-router")
 
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -13,9 +14,11 @@ const app = express();
 const cors = require("cors");
 const { sayHello } = require("./test");
 const { getPaperByName } = require("./models/searchByName");
+const accountController = require("./controllers/accountController");
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+app.use("/tag",tagRouter);
 app.use("/account", accountRouter);
 
 app.get("/", function (req, res) {
