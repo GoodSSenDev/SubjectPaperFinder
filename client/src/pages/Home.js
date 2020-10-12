@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavBar from "../components/navbar";
 import MainSearchBar from "../components/mainsearchbar";
 import ButtonArrow from "../components/buttonarrow";
 import DisplayCards from "../components/displaycards";
@@ -9,7 +8,7 @@ import TagBox from "../components/tagbox";
 import DatePickerCustom from "../components/DatePickerCustom";
 import DropDownSort from "../components/dropdownSort";
 
-import {store} from "../store";
+import { store } from "../store";
 import { setResults } from "../actions";
 
 class Home extends Component {

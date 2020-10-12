@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { store } from "../store";
 
 import Axios from "axios";
+
 class Profile extends Component {
   state = {
     profile: null,
@@ -13,7 +14,10 @@ class Profile extends Component {
     const unsubscribe = store.subscribe(() => {
       console.log("Store changed!", store.getState());
       this.setState({ user: store.getState().user });
-      this.renderProfile();
+      if (this.state.user != "") {
+        console.log("hmm");
+        this.renderProfile();
+      }
     });
   }
 

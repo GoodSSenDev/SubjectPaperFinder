@@ -4,8 +4,10 @@ import {Dropdown, ButtonGroup} from "react-bootstrap"
 import { store } from "../store";
 import { setUser } from "../actions";
 
+import { Redirect } from "react-router-dom";
+
 class ProfileButton extends Component {
-    state = {  }
+    state = { logout: false }
     logout(){
         store.dispatch(setUser(""))
     }
@@ -29,7 +31,7 @@ class ProfileButton extends Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item onClick={this.logout.bind(this)}>Log out</Dropdown.Item>
+                    <Dropdown.Item onClick={this.logout.bind(this)} href="/">Log out</Dropdown.Item>
                     <Dropdown.Item href="/profile">View Profile</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
