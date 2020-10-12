@@ -54,5 +54,4 @@ describe("QueuedPaperModel test", function () {
 });
 
 after(function () {
-  close();
 });

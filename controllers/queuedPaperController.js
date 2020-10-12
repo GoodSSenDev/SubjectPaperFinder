@@ -3,19 +3,19 @@ const queuedPaperModel = require("../models/queuedPaperModel");
 
 //this class is singleton class and returns own instance
 //this class useses queuedPaperModels
-class queuedPaperModelController {
+class queuedPaperController {
   constructor() {
-    if (queuedPaperModelController.exist) {
-      return queuedPaperModelController.instance;
+    if (queuedPaperController.exist) {
+      return queuedPaperController.instance;
     }
 
     this.papers = [];
 
     this._queuedPaperModel = queuedPaperModel;
 
-    queuedPaperModelController.instance = this;
+    queuedPaperController.instance = this;
 
-    queuedPaperModelController.exist = true;
+    queuedPaperController.exist = true;
 
     return this;
   }
@@ -101,4 +101,4 @@ class queuedPaperModelController {
   }
 }
 
-module.exports = queuedPaperModelController;
+module.exports = queuedPaperController;
