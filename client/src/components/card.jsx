@@ -5,8 +5,6 @@ import SubmissionPage from "../pages/SubmissionPage";
 class Card extends Component {
   state = {};
   render() {
-    const backUrl = "/";
-    const items = [];
     const data = this.props.data;
     let title;
     let date;
@@ -48,8 +46,7 @@ class Card extends Component {
             <div class="card-body">
               <Link
                 to={{
-                  pathname: `${data._id}`,
-                  query: { backUrl },
+                  pathname: `${data._id}+${this.props.type}`,
                 }}
                 style={{ fontSize: "20px" }}
               >

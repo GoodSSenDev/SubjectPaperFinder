@@ -32,9 +32,7 @@ class Login extends Component {
             window.alert(res.data.error);
             break;
           case 1:
-            window.alert("Welcome Back! :3");
-            store.dispatch(setUser(this.state.username));
-            this.setState({ success: true });
+            this.setUser();
             break;
           case 2:
             window.alert(res.data.error);
@@ -48,6 +46,25 @@ class Login extends Component {
         console.error(err);
       });
   }
+
+  setUser() {
+    let data = {
+      username: this.state.username,
+    };
+    Axios.post("/account/profile", data)
+      .then((res) => {
+        window.alert("Welcome Back! :3");
+        let role = res.data.data.role;
+        store.dispatch(
+          setUser({ user: this.state.username, role: role.toUpperCase() })
+        );
+        this.setState({ success: true });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   render() {
     if (this.state.success) return <Redirect to="/" />;
     return (

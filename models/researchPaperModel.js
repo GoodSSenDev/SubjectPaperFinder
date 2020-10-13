@@ -17,6 +17,7 @@ const researchPaperSchema = new Schema({
   eprinttype: { type: String, required: false },
   eprintclass: { type: String, required: false },
   tags: [Number],
+  date: { type: String },
 });
 
 //model = document

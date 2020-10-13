@@ -1,8 +1,11 @@
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+
 import Axios from "axios";
 import React, { Component } from "react";
 
 class SubmissionPage extends Component {
-  state = { title: "", author: "", journal: "" };
+  state = { title: "", author: "", journal: "", date: null };
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -10,6 +13,7 @@ class SubmissionPage extends Component {
   }
   handleSubmit(event) {
     var data = this.state;
+    data.date = this.convertDateToShort(data.date);
     let config = {
       headers: {
         title: "Submit_Paper",
@@ -33,6 +37,20 @@ class SubmissionPage extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  setStartDate(date) {
+    this.setState({
+      date: date,
+    });
+  }
+
+  convertDateToShort(date) {
+    if (date == null) return "";
+    var day = date.getDay().toString();
+    var month = date.getMonth().toString();
+    var year = date.getFullYear().toString();
+    return day + "/" + month + "/" + year;
   }
 
   render() {
@@ -75,6 +93,15 @@ class SubmissionPage extends Component {
             value={this.state.journal}
             onChange={this.handleChange}
           />
+          <div style={{ marginTop: "50px" }}>
+            <text>Date Created: </text>
+            <DatePicker
+              selected={this.state.date}
+              onChange={(date) => this.setStartDate(date)}
+              isClearable
+              placeholderText="Enter From Date"
+            />
+          </div>
         </form>
         <button
           style={{

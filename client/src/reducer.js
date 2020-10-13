@@ -4,7 +4,7 @@ import * as sort from "./sortingbydate";
 const INIT_STATE = {
   results: [],
   display: sort.noSort,
-  user: "",
+  user: null,
 };
 
 export default function reducer(state = INIT_STATE, action) {

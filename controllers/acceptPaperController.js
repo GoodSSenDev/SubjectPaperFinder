@@ -31,15 +31,14 @@ class acceptedPaperController {
     if (jsonArray.length != 0) {
       this.papers = [];
 
-      jsonArray.forEach(obj => {
-        this.papers.push({ ...obj })
+      jsonArray.forEach((obj) => {
+        this.papers.push({ ...obj });
       });
     }
     return this.papers;
   }
 
   async insertNewAcceptedPaper(paper) {
-
     if (this.papers.length == 0) {
       await acceptedPaperModel.collection
         .insertOne({ _PId: 1, ...paper })
@@ -76,7 +75,7 @@ class acceptedPaperController {
       }
     });
 
-    return this.papers = this.papers.filter((x) => x._PId !== PId);
+    return (this.papers = this.papers.filter((x) => x._PId !== PId));
   }
 
   async deleteAcceptedPaperAuthor(author) {
@@ -88,7 +87,7 @@ class acceptedPaperController {
       }
     });
 
-    return this.papers = this.papers.filter((x) => x.author !== author);
+    return (this.papers = this.papers.filter((x) => x.author !== author));
   }
 
   async deleteEveryAcceptedPapers() {
