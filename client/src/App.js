@@ -52,6 +52,16 @@ class App extends Component {
       if (this.state.user.role == "MODERATOR") {
         links.push(
           <a
+            href="/rejectedpapers"
+            class="btn btn-outline-dark"
+            role="button"
+            aria-pressed="true"
+          >
+            View Rejected Papers
+          </a>
+        );
+        links.push(
+          <a
             href="/submittedpapers"
             class="btn btn-outline-dark"
             role="button"
@@ -67,7 +77,7 @@ class App extends Component {
       ) {
         links.push(
           <a
-            href="/acceptedpaper"
+            href="/acceptedpapers"
             class="btn btn-outline-dark"
             role="button"
             aria-pressed="true"
@@ -203,7 +213,10 @@ class App extends Component {
             {this.renderNavBar()}
           </nav>
           <Switch>
-            <Route path="/acceptedpaper">
+            <Route path="/rejectedpapers">
+              <SubmittedPaperQue type="rejected" />
+            </Route>
+            <Route path="/acceptedpapers">
               <SubmittedPaperQue type="accepted" />
             </Route>
             <Route path="/submittedpapers">

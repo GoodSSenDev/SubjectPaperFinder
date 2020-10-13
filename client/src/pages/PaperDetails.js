@@ -15,6 +15,7 @@ class PaperDetails extends Component {
   constructor(props) {
     super(props);
     this.AcceptPaper = this.AcceptPaper.bind(this);
+    this.RejectPaper = this.RejectPaper.bind(this);
     this.AnalystAcceptPaper = this.AnalystAcceptPaper.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -60,6 +61,30 @@ class PaperDetails extends Component {
       .then((res) => {
         console.log(res.data);
         window.alert("Paper Accepted!");
+        this.setState({ moved: true });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  RejectPaper() {
+    if (this.state.displayedPaper == null) return;
+    let paper = this.state.displayedPaper;
+    const PID = parseInt(this.state.displayedPaper._PId);
+
+    delete paper["_PId"];
+    delete paper["_id"];
+
+    let Data = {
+      PID: PID,
+      paper: paper,
+    };
+
+    Axios.post("/paper/reject-queued-paper", Data)
+      .then((res) => {
+        console.log(res.data);
+        window.alert("Paper Rejected :(");
         this.setState({ moved: true });
       })
       .catch((err) => {
@@ -162,7 +187,7 @@ class PaperDetails extends Component {
           <button
             type="button"
             class="btn btn-danger btn-lg"
-            onClick={this.handleSubmit}
+            onClick={this.RejectPaper}
           >
             Reject
           </button>
@@ -190,7 +215,8 @@ class PaperDetails extends Component {
   render() {
     const { moved, user, type } = this.state;
     if (moved) return <Redirect to="/" />;
-    if (user != null && type != "card") {
+    console.log(type);
+    if (user != null && type != "card" && type != "rejected") {
       return (
         <div
           style={{
