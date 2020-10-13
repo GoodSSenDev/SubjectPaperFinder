@@ -14,7 +14,7 @@ class TagBox extends Component {
         <div class="card-header">{this.props.titlename}</div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
-            <Tag />
+            <Tag title="example"/>
           </blockquote>
         </div>
       </div>

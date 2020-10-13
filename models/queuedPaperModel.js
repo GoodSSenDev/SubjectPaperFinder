@@ -16,6 +16,7 @@ const queuedPaperSchema = new Schema({
   eprint: { type: String, required: false },
   eprinttype: { type: String, required: false },
   eprintclass: { type: String, required: false },
+  date: { Type: String },
 });
 
 //model = document
