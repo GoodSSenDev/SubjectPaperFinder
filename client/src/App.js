@@ -48,6 +48,7 @@ class App extends Component {
         </a>
       );
     } else {
+      console.log(this.state.user.role);
       if (this.state.user.role == "MODERATOR") {
         links.push(
           <a
