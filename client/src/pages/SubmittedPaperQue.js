@@ -18,6 +18,8 @@ class SubmittedPaperQue extends Component {
       return this.searchPaper("get-queued-papers");
     else if (this.props.type == "accepted")
       return this.searchPaper("get-accepted-papers");
+    else if (this.props.type == "rejected")
+      return this.searchPaper("get-rejected-papers");
   };
 
   searchPaper(action) {
@@ -32,18 +34,22 @@ class SubmittedPaperQue extends Component {
       });
   }
   renderTitle() {
+    console.log(this.state.type);
     if (this.state.type == "submitted")
       return (
         <h1 style={{ marginBottom: "30px" }}>
           Submitted papers waiting for approval
         </h1>
       );
-    else
+    else if (this.state.type == "accepted")
       return (
         <h1 style={{ marginBottom: "30px" }}>
           Accepted papers waiting for approval
         </h1>
       );
+    else if (this.state.type == "rejected") {
+      return <h1 style={{ marginBottom: "30px" }}>Rejected papers :(</h1>;
+    }
   }
 
   render() {
@@ -51,9 +57,7 @@ class SubmittedPaperQue extends Component {
     if (results == []) return <div>Submited Paper Queue</div>;
     return (
       <div style={{ marginTop: "30px", marginLeft: "30px" }}>
-        <h1 style={{ marginBottom: "30px" }}>
-          Submitted papers waiting for approval
-        </h1>
+        {this.renderTitle()}
         <hr
           style={{
             color: "#e6e6e6",
