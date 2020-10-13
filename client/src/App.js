@@ -12,13 +12,15 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/ProfilePage";
+import SubmittedPaperQue from "./pages/SubmittedPaperQue";
+import AcceptedPaperQue from "./pages/AcceptedPaperQue";
 
 import { store } from "./store";
 import { setUser } from "./actions";
 
 class App extends Component {
   state = {
-    user: "",
+    user: null,
   };
 
   renderNavBar() {
@@ -34,7 +36,7 @@ class App extends Component {
         Home
       </a>
     );
-    if (this.state.user == "") {
+    if (this.state.user == null) {
       links.push(
         <a
           href="/login"
@@ -46,6 +48,33 @@ class App extends Component {
         </a>
       );
     } else {
+      if (this.state.user.role == "MODERATOR") {
+        links.push(
+          <a
+            href="/submittedpapers"
+            class="btn btn-outline-dark"
+            role="button"
+            aria-pressed="true"
+          >
+            View Submitted Papers
+          </a>
+        );
+      }
+      if (
+        this.state.user.role == "MODERATOR" ||
+        this.state.user.role == "ANALYST"
+      ) {
+        links.push(
+          <a
+            href="/acceptedpaper"
+            class="btn btn-outline-dark"
+            role="button"
+            aria-pressed="true"
+          >
+            View Accepted Papers
+          </a>
+        );
+      }
       links.push(
         <a
           href="/submission"
@@ -63,21 +92,98 @@ class App extends Component {
       );
     }
 
-    return (
-      <span>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-1000">
-              <div class="btn-group">{links}</div>
-            </div>
-          </div>
-        </div>
-      </span>
-    );
+    return <div class="btn-group">{links}</div>;
   }
 
   logout() {
     store.dispatch(setUser(""));
+  }
+
+  renderRoutes() {
+    console.log(this.state.user);
+    if (this.state.user == null)
+      return (
+        <Switch>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/:paper">
+            <PaperDetails />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      );
+    else if (this.state.user.role.toUpperCase() == "USER")
+      return (
+        <Switch>
+          <Route path="/submission">
+            <SubmissionPage />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/:paper">
+            <PaperDetails />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      );
+    else if (this.state.user.role.toUpperCase() == "ANALYST")
+      return (
+        <Switch>
+          <Route path="/acceptedpaper">
+            <AcceptedPaperQue />
+          </Route>
+          <Route path="/submission">
+            <SubmissionPage />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/:paper">
+            <PaperDetails />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      );
+    else if (this.state.user.role.toUpperCase() == "MODERATOR")
+      return (
+        <Switch>
+          <Route path="/acceptedpaper">
+            <AcceptedPaperQue />
+          </Route>
+          <Route path="/submittedpapers">
+            <SubmittedPaperQue />
+          </Route>
+          <Route path="/submission">
+            <SubmissionPage />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/:paper">
+            <PaperDetails />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      );
   }
 
   render() {
@@ -95,8 +201,13 @@ class App extends Component {
             </a>
             {this.renderNavBar()}
           </nav>
-
           <Switch>
+            <Route path="/acceptedpaper">
+              <SubmittedPaperQue type="accepted" />
+            </Route>
+            <Route path="/submittedpapers">
+              <SubmittedPaperQue type="submitted" />
+            </Route>
             <Route path="/submission">
               <SubmissionPage />
             </Route>

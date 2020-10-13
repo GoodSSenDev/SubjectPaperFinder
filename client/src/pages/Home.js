@@ -50,7 +50,7 @@ class Home extends Component {
         <p style={{ marginLeft: "10px" }}>Showing {results.length} Results:</p>
         <DropDownSort />
 
-        <DisplayCards data={results} />
+        <DisplayCards data={results} type="card" />
       </React.Fragment>
     );
   }

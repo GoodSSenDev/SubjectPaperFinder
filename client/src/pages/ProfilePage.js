@@ -6,16 +6,16 @@ import Axios from "axios";
 class Profile extends Component {
   state = {
     profile: null,
-    user: "",
+    user: null,
   };
 
   constructor(props) {
     super(props);
+    this.setState({ user: store.getState().user });
     const unsubscribe = store.subscribe(() => {
       console.log("Store changed!", store.getState());
       this.setState({ user: store.getState().user });
-      if (this.state.user != "") {
-        console.log("hmm");
+      if (this.state.user != null) {
         this.renderProfile();
       }
     });
@@ -23,7 +23,7 @@ class Profile extends Component {
 
   renderProfile() {
     let data = {
-      username: this.state.user,
+      username: this.state.user.user,
     };
     Axios.post("/account/profile", data)
       .then((res) => {

@@ -9,13 +9,13 @@ import { Redirect } from "react-router-dom";
 class ProfileButton extends Component {
     state = { logout: false }
     logout(){
-        store.dispatch(setUser(""))
+        store.dispatch(setUser(null))
     }
     render() { 
         return (
             <Dropdown >
                 <Dropdown.Toggle id="dropdown-basic-button" title="profile">
-                    <span>{store.getState().user + " "}</span>
+                    <span>{store.getState().user.user + " "}</span>
                     <svg
                         width="2em"
                         height="2em"

@@ -41,7 +41,9 @@ class SignUp extends Component {
             break;
           case 1:
             window.alert("Successfully Signed Up! :3");
-            store.dispatch(setUser(this.state.username));
+            store.dispatch(
+              setUser({ user: this.state.username, role: "USER" })
+            );
             this.setState({ success: true });
             break;
           case 2:
