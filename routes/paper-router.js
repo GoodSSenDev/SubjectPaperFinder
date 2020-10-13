@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const queuedPaperControl = require("../controllers/queuedPaperController");
 const acceptPaperControl = require("../controllers/acceptPaperController");
 const researchPaperControl = require("../controllers/researchPaperController");
+const rejectedPaperControl = require("../controllers/rejectedPaperController");
+
 
 const queuedPaperController = new queuedPaperControl();
 queuedPaperController.init();
@@ -13,13 +15,13 @@ acceptPaperController.init();
 const researchPaperController = new researchPaperControl();
 researchPaperController.init();
 
+const rejectedPaperController = new rejectedPaperControl();
+rejectedPaperController.init();
+
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-
-//Submitter -> Moderator -> Serl Analyst -> ResearchPaperDatabase
-//Queued paper -> Accept paper -> Research paper
 
 router.post("/get-queued-papers", async (req, res) => {
   let papers = [];
@@ -185,5 +187,71 @@ router.post("/delete-research-papers", async (req, res) => {
     papers: papers,
   });
 });
+
+router.post("/get-rejected-papers", async (req, res) => {
+  let papers = [];
+  let success = true;
+  papers = await rejectedPaperController.getRejectedPapers().catch((error) => {
+    console.log(error);
+    success = false;
+  });
+
+  return res.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+router.post("/reject-queued-paper", async (req, res) => {
+  let success = true;
+  let papers = [];
+
+  papers = await queuedPaperController
+    .deleteQueuedPaperId(req.body.PID)
+    .catch((error) => {
+      console.log(error);
+      return res.send({
+        success: false,
+        code: 0,
+      });
+    });
+  //paper should also contains array of tags
+  success = await rejectedPaperController
+    .insertNewRejectedPaper(req.body.paper)
+    .catch((error) => {
+      console.log(error);
+      return res.send({
+        success: false,
+        papers: papers,
+        code: 2,
+      });
+    });
+
+  return res.send({
+    success: success,
+    papers: papers,
+    code: 1,
+  });
+});
+
+
+router.post("/delete-rejected-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await rejectedPaperController
+    .deleteRejectedPaperId(req.body.PID)
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+
+
 
 module.exports = router;
