@@ -18,4 +18,4 @@ const acceptedSchema = new Schema({
 const Model = mongoose.model;
 const acceptedModel = Model("acceptedpapers", acceptedSchema);
 
-module.exports = acceptedModel;
+module.exports.acceptedModel = acceptedModel;

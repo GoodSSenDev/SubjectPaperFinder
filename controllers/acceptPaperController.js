@@ -1,6 +1,6 @@
 const { json } = require("express");
 const mongoose = require("../models/connectMongo").mongoose;
-const acceptedPaperModel = require("../models/acceptedPapersModel");
+const acceptedPaperModel = require("../models/acceptedPapersModel").acceptedModel;
 
 //this class is singleton class and returns own instance
 //this class useses acceptedPaperController
