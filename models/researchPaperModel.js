@@ -4,7 +4,7 @@ const mongoose = require("./connectMongo").mongoose;
 require("dotenv").config();
 
 const Schema = mongoose.Schema;
-const queuedPaperSchema = new Schema({
+const researchPaperSchema = new Schema({
   _PId: { type: Number, required: true },
   author: { type: String, required: false },
   title: { type: String },
@@ -16,9 +16,10 @@ const queuedPaperSchema = new Schema({
   eprint: { type: String, required: false },
   eprinttype: { type: String, required: false },
   eprintclass: { type: String, required: false },
+  tags: [Number],
 });
 
 //model = document
 const Model = mongoose.model;
 
-module.exports = Model("queuedpapers", queuedPaperSchema);
+module.exports = Model("researchpapers", researchPaperSchema);
