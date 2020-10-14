@@ -75,7 +75,7 @@ router.post("/submit-queued-papers", async (req, res) => {
     req.body.paper
   );
 
-  return req.send({
+  return res.send({
     success: success,
   });
 });
@@ -284,7 +284,6 @@ router.post("/delete-paper", async (req, res) => {
 router.post("/get-date-papers", async (req, res) => {
   let success = true;
   let papers = [];
-  console.log(req.data);
   papers = await paperController
     .getPaperByDate([req.body.StartDate, req.body.EndDate])
     .catch((error) => {

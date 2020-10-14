@@ -46,7 +46,6 @@ class MainSearchBar extends Component {
   }
 
   searchPaper() {
-    console.log("searchPaper");
     var Data = {
       text: this.state.value,
       StartDate: this.convertDateToShort(this.state.StartDate),
@@ -54,13 +53,9 @@ class MainSearchBar extends Component {
     };
 
     let routes = "";
-    console.log(this.state.StartDate);
-    console.log(Data.StartDate);
-    console.log(this.state.EndDate);
-    console.log(Data.EndDate);
-    console.log("ROUTES----------------");
+
     if (Data.text == "" && (Data.StartDate == "" || Data.EndDate == "")) {
-      routes = "get-search-title-papers";
+      routes = "get-papers";
     } else if (Data.text == "") {
       routes = "get-date-papers";
     } else if (Data.StartDate == "" || Data.EndDate == "") {
@@ -68,15 +63,10 @@ class MainSearchBar extends Component {
     } else {
       routes = "get-date-search-title-papers";
     }
-    console.log(routes);
-    console.log("ROUTES----------------");
 
     Axios.post("/paper/" + routes, Data)
       .then((res) => {
         var results = res.data.papers;
-        console.log("RESULTS----------------");
-        console.log(results);
-        console.log("RESULTS----------------");
         store.dispatch(setResults(results));
       })
       .catch((err) => {

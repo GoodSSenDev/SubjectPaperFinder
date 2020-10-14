@@ -119,6 +119,7 @@ class PaperController {
   }
 
   async getPaperByDate(date) {
+    console.log(date);
     let allRecords = this.papers.filter((item) => item.year !== undefined);
 
     return await this.checkBetween(date, allRecords);

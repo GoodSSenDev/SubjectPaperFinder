@@ -43,36 +43,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
-app.post("/", async function (req, res) {
-  var header = req.header("title");
-  var data = req.body;
-  console.log(header);
-  if (header == "Searching_Paper") {
-    var paperDataDate = [];
-    var paperDataName = [];
-    if (data.StartDate != "" && data.EndDate != "") {
-      const paperdate = searchByDateController.getPapers([
-        data.StartDate,
-        data.EndDate,
-      ]);
-      paperdate.then((paperdate) => {
-        paperDataDate = paperdate;
-      });
-    }
-    console.log(data.text);
-    const papers = searchController.getPapers(data.text);
-    papers.then((paperData) => {
-      console.log("requested papers");
-      paperDataName = paperData;
-      res.send([paperDataName, paperDataDate]);
-    });
-  } else if (header == "Submit_Paper") {
-    console.log("Submitting paper");
-    const submission = new queuedPaperController();
-    await submission.insertNewQueuedPaper(data);
-    res.send(true);
-    console.log("Submitted paper");
-  }
-});
-
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
