@@ -48,7 +48,6 @@ class App extends Component {
         </a>
       );
     } else {
-      console.log(this.state.user.role);
       if (this.state.user.role == "MODERATOR") {
         links.push(
           <a
@@ -111,7 +110,6 @@ class App extends Component {
   }
 
   renderRoutes() {
-    console.log(this.state.user);
     if (this.state.user == null)
       return (
         <Switch>
@@ -198,9 +196,9 @@ class App extends Component {
   }
 
   render() {
-    console.log("App - Rendered");
+    // console.log("App - Rendered");
     const unsubscribe = store.subscribe(() => {
-      console.log("Store changed!", store.getState());
+      //console.log("Store changed!", store.getState());
       this.setState({ user: store.getState().user });
     });
     return (

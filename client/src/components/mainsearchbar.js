@@ -36,6 +36,7 @@ class MainSearchBar extends Component {
     event.preventDefault();
   }
   handleClick(event) {
+    console.log("handleClick");
     this.searchPaper();
   }
   handlePress(event) {
@@ -50,24 +51,41 @@ class MainSearchBar extends Component {
       StartDate: this.convertDateToShort(this.state.StartDate),
       EndDate: this.convertDateToShort(this.state.EndDate),
     };
-    let config = {
-      headers: {
-        title: "Searching_Paper",
-      },
-    };
-    Axios.post("/", Data, config)
+
+    let routes = "";
+
+    if (Data.text == "" && (Data.StartDate == "" || Data.EndDate == "")) {
+      routes = "get-papers";
+    } else if (Data.text == "") {
+      routes = "get-date-papers";
+    } else if (Data.StartDate == "" || Data.EndDate == "") {
+      routes = "get-search-title-papers";
+    } else {
+      routes = "get-date-search-title-papers";
+    }
+
+    Axios.post("/paper/" + routes, Data)
       .then((res) => {
-        var results = res.data;
-        console.log(results);
-        if (Data.StartDate == "" && Data.EndDate == "") {
-          store.dispatch(setResults(results[0]));
-        } else {
-          store.dispatch(setResults(this.GetMatchingResults(results)));
-        }
+        var results = res.data.papers;
+        store.dispatch(setResults(results));
       })
       .catch((err) => {
         console.error(err);
       });
+
+    // Axios.post("/", Data, config)
+    //   .then((res) => {
+    //     var results = res.data;
+    //     console.log(results);
+    //     if (Data.StartDate == "" && Data.EndDate == "") {
+    //       store.dispatch(setResults(results[0]));
+    //     } else {
+    //       store.dispatch(setResults(this.GetMatchingResults(results)));
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   }
 
   setStartDate(date) {
@@ -81,8 +99,8 @@ class MainSearchBar extends Component {
 
   convertDateToShort(date) {
     if (date == null) return "";
-    var day = date.getDay().toString();
-    var month = date.getMonth().toString();
+    var day = date.getDate().toString();
+    var month = (date.getMonth() + 1).toString();
     var year = date.getFullYear().toString();
     return day + "/" + month + "/" + year;
   }

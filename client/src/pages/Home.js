@@ -23,7 +23,7 @@ class Home extends Component {
     });
 
     const unsubscribe = store.subscribe(() => {
-      console.log("Store changed!", store.getState());
+      //console.log("Store changed!", store.getState());
       this.setState({ results: store.getState().results });
     });
   };
@@ -31,15 +31,15 @@ class Home extends Component {
   render() {
     const { results, searchfield } = this.state;
 
-    console.log("Home page - Rendered");
+    //console.log("Home page - Rendered");
     return (
       <React.Fragment>
         {searchfield}
-        <TagBox titlename={"ADD TAGS"} />
+        {/* <TagBox titlename={"ADD TAGS"} />
         <TagBox titlename={"IGNORE TAGS"} />
-        <TagBox titlename={"Refine Search"} />
+        <TagBox titlename={"Refine Search"} /> */}
 
-        <h3 style={{ marginLeft: "10px" }}>Results</h3>
+        <h3 style={{ marginLeft: "10px", marginTop: "10px" }}>Results</h3>
         <hr
           style={{
             color: "#e6e6e6",
