@@ -247,7 +247,7 @@ router.post("/delete-rejected-papers", async (req, res) => {
       success = false;
     });
 
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
@@ -256,30 +256,12 @@ router.post("/delete-rejected-papers", async (req, res) => {
 router.post("/get-papers", async (req, res) => {
   let success = true;
   let papers = [];
-  papers = await paperController
-    .getPaper(["00/00/2014","00/07/2019"])
-    .catch((error) => {
-      console.log(error);
-      success = false;
-    });
-
-  return req.send({
-    success: success,
-    papers: papers,
+  papers = await paperController.getPapers().catch((error) => {
+    console.log(error);
+    success = false;
   });
-});
 
-router.post("/get-papers", async (req, res) => {
-  let success = true;
-  let papers = [];
-  papers = await paperController
-    .getPapers(["00/00/2014","00/07/2019"])
-    .catch((error) => {
-      console.log(error);
-      success = false;
-    });
-
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
@@ -288,31 +270,29 @@ router.post("/get-papers", async (req, res) => {
 router.post("/delete-paper", async (req, res) => {
   let success = true;
   let papers = [];
-  papers = await paperController
-    .deletePaperId(req.body.PID)
-    .catch((error) => {
-      console.log(error);
-      success = false;
-    });
+  papers = await paperController.deletePaperId(req.body.PID).catch((error) => {
+    console.log(error);
+    success = false;
+  });
 
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
 });
 
-
 router.post("/get-date-papers", async (req, res) => {
   let success = true;
   let papers = [];
+  console.log(req.data);
   papers = await paperController
-    .getPapers([req.body.StartDate,req.body.EndDate])
+    .getPaperByDate([req.body.StartDate, req.body.EndDate])
     .catch((error) => {
       console.log(error);
       success = false;
     });
 
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
@@ -328,7 +308,7 @@ router.post("/get-search-title-papers", async (req, res) => {
       success = false;
     });
 
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
@@ -338,22 +318,19 @@ router.post("/get-date-search-title-papers", async (req, res) => {
   let success = true;
   let papers = [];
   papers = await paperController
-    .getPaperByNameWithDate(req.body.text,[req.body.StartDate,req.body.EndDate])
+    .getPaperByNameWithDate(req.body.text, [
+      req.body.StartDate,
+      req.body.EndDate,
+    ])
     .catch((error) => {
       console.log(error);
       success = false;
     });
 
-  return req.send({
+  return res.send({
     success: success,
     papers: papers,
   });
 });
-
-
-
-
-
-
 
 module.exports = router;
