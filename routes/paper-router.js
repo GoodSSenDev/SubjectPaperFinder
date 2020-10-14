@@ -4,7 +4,10 @@ const queuedPaperControl = require("../controllers/queuedPaperController");
 const acceptPaperControl = require("../controllers/acceptPaperController");
 const researchPaperControl = require("../controllers/researchPaperController");
 const rejectedPaperControl = require("../controllers/rejectedPaperController");
+const paperControl = require("../controllers/paperController");
 
+const paperController = new paperControl();
+paperController.init();
 
 const queuedPaperController = new queuedPaperControl();
 queuedPaperController.init();
@@ -123,8 +126,8 @@ router.post("/accept-accepted-paper", async (req, res) => {
       });
     });
   //paper should also contains array of tags
-  success = await researchPaperController
-    .insertNewResearchPaper(req.body.paper)
+  success = await paperController
+    .insertNewPaper(req.body.paper)
     .catch((error) => {
       console.log(error);
       return res.send({
@@ -234,7 +237,6 @@ router.post("/reject-queued-paper", async (req, res) => {
   });
 });
 
-
 router.post("/delete-rejected-papers", async (req, res) => {
   let success = true;
   let papers = [];
@@ -250,6 +252,106 @@ router.post("/delete-rejected-papers", async (req, res) => {
     papers: papers,
   });
 });
+
+router.post("/get-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .getPaper(["00/00/2014","00/07/2019"])
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+router.post("/get-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .getPapers(["00/00/2014","00/07/2019"])
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+router.post("/delete-paper", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .deletePaperId(req.body.PID)
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+
+router.post("/get-date-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .getPapers([req.body.StartDate,req.body.EndDate])
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+router.post("/get-search-title-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .getPaperByName(req.body.text)
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+router.post("/get-date-search-title-papers", async (req, res) => {
+  let success = true;
+  let papers = [];
+  papers = await paperController
+    .getPaperByNameWithDate(req.body.text,[req.body.StartDate,req.body.EndDate])
+    .catch((error) => {
+      console.log(error);
+      success = false;
+    });
+
+  return req.send({
+    success: success,
+    papers: papers,
+  });
+});
+
+
+
 
 
 
